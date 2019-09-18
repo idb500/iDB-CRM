@@ -25,6 +25,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles','RoleController');
     Route::resource('users','UserController');
     Route::resource('products','ProductController');
+    // Route::resource('contact','ContactController');
+    Route::resource('contact', 'ContactController');
+Route::get('users-list', 'ContactController@usersList');
 });
 
 // Update Company Profile
