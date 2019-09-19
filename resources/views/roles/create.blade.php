@@ -28,13 +28,15 @@
 
 {!! Form::open(array('route' => 'roles.store','method'=>'POST')) !!}
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-6 col-sm-6 col-md-6">
         <div class="form-group">
             <strong>Name:</strong>
             {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
+    </div>
+    <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6">
         <div class="form-group">
             <strong>Permission:</strong>
             <br/>
@@ -45,7 +47,9 @@
             @endforeach
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+    </div>
+    <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6">
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </div>
