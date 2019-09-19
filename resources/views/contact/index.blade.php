@@ -2,80 +2,255 @@
 
 
 @section('content')
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
-
-<div class="kt-portlet kt-portlet--mobile">
-<div class="kt-portlet__head kt-portlet__head--lg">
-									<div class="kt-portlet__head-label">
-										<span class="kt-portlet__head-icon">
-											<i class="kt-font-brand flaticon2-line-chart"></i>
-										</span>
-										<h3 class="kt-portlet__head-title">
-											Contact
-											<small>Management</small>
-										</h3>
-									</div>
-									<div class="kt-portlet__head-toolbar">
-										<div class="kt-portlet__head-wrapper">
-											<div class="kt-portlet__head-actions">
-											
-												&nbsp;
-												<a href="#" class="btn btn-brand btn-elevate btn-icon-sm">
-													<i class="la la-plus"></i>
-													New Record
-												</a>
+<!--begin:: Portlet-->
+<div class="kt-portlet">
+								<div class="kt-portlet__body">
+									<div class="kt-widget kt-widget--user-profile-3">
+										<div class="kt-widget__top">
+											<div class="kt-widget__media kt-hidden-">
+												<img src="assets/media/users/100_1.jpg" alt="image">
+											</div>
+											<div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
+												JM
+											</div>
+											<div class="kt-widget__content">
+												<div class="kt-widget__head">
+													<a href="#" class="kt-widget__username">
+														Jason Muller
+														<i class="flaticon2-correct kt-font-success"></i>
+													</a>
+													<div class="kt-widget__action">
+														<button type="button" class="btn btn-label-success btn-sm btn-upper">ask</button>&nbsp;
+														<button type="button" class="btn btn-brand btn-sm btn-upper">hire</button>
+													</div>
+												</div>
+												<div class="kt-widget__subhead">
+													<a href="#"><i class="flaticon2-new-email"></i>jason@siastudio.com</a>
+													<a href="#"><i class="flaticon2-calendar-3"></i>PR Manager </a>
+													<a href="#"><i class="flaticon2-placeholder"></i>Melbourne</a>
+												</div>
+												<div class="kt-widget__info">
+													<div class="kt-widget__desc">
+														I distinguish three main text objektive could be merely to inform people.
+														<br> A second could be persuade people.You want people to bay objective
+													</div>
+													<div class="kt-widget__progress">
+														<div class="kt-widget__text">
+															Progress
+														</div>
+														<div class="progress" style="height: 5px;width: 100%;">
+															<div class="progress-bar kt-bg-success" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+														</div>
+														<div class="kt-widget__stats">
+															78%
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="kt-widget__bottom">
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-piggy-bank"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Earnings</span>
+													<span class="kt-widget__value"><span>$</span>249,500</span>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-confetti"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Expenses</span>
+													<span class="kt-widget__value"><span>$</span>164,700</span>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-pie-chart"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Net</span>
+													<span class="kt-widget__value"><span>$</span>782,300</span>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-file-2"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">73 Tasks</span>
+													<a href="#" class="kt-widget__value kt-font-brand">View</a>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-chat-1"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">648 Comments</span>
+													<a href="#" class="kt-widget__value kt-font-brand">View</a>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-network"></i>
+												</div>
+												<div class="kt-widget__details">
+													<div class="kt-section__content kt-section__content--solid">
+														<div class="kt-media-group">
+															<a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="John Myer">
+																<img src="assets/media/users/100_1.jpg" alt="image">
+															</a>
+															<a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Alison Brandy">
+																<img src="assets/media/users/100_10.jpg" alt="image">
+															</a>
+															<a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Selina Cranson">
+																<img src="assets/media/users/100_11.jpg" alt="image">
+															</a>
+															<a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Micheal York">
+																<img src="assets/media/users/100_3.jpg" alt="image">
+															</a>
+															<a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Micheal York">
+																<span>+5</span>
+															</a>
+														</div>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
-                </div>
-                <div class="kt-portlet__body">
-
-									<!--begin: Search Form -->
-								
-
-									<!--end: Search Form -->
 								</div>
-              <div class="kt-portlet__body kt-portlet__body--fit">
-              <table class="table table-bordered" id="laravel_datatable">
-               <thead>
-                  <tr>
-                     <th>Id</th>
-                     <th>Domain Name</th>
-                     <th>Email</th>
-                     <th>Phone</th>
-                     <th>Country</th>
-                     <th>City</th>
-                     <th>Domain Registrar Name</th>
-                     <th>Create Date</th>
-                     <th>Action</th>
-                  </tr>
-               </thead>
-            </table>
-</div>
-</div>
-   
-   <script>
-   $(document).ready( function () {
-    $('#laravel_datatable').DataTable({
-           processing: true,
-           serverSide: true,
-           ajax: "{{ url('users-list') }}",
-           columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'id', name: 'id' },
-                    { data: 'registrant_email', name: 'registrant_email' },
-					     { data: 'registrant_phone', name: 'registrant_phone' },
-                    { data: 'registrant_country', name: 'registrant_country' },
-                    { data: 'registrant_city', name: 'registrant_city' },
-                    { data: 'domain_registrar_name', name: 'domain_registrar_name' },
-                    { data: 'created_date', name: 'created_date' },
-                    { data: 'expiry_date', name: 'expiry_date' }
-                 ]
-        });
-     });
-  </script>
+							</div>
 
+							<!--end:: Portlet-->
+                       
 
+                      	<!--begin:: Portlet-->
+							<div class="kt-portlet">
+								<div class="kt-portlet__body">
+									<div class="kt-widget kt-widget--user-profile-3">
+										<div class="kt-widget__top">
+											<div class="kt-widget__media kt-hidden">
+												<img src="assets/media/users/100_1.jpg" alt="image">
+											</div>
+											<div class="kt-widget__pic kt-widget__pic--brand kt-font-brand kt-font-boldest kt-hidden-">
+												SF
+											</div>
+											<div class="kt-widget__content">
+												<div class="kt-widget__head">
+													<a href="#" class="kt-widget__username">
+														Sergei Ford
+													</a>
+													<div class="kt-widget__action">
+														<button type="button" class="btn btn-label-success btn-sm btn-upper">ask</button>&nbsp;
+														<button type="button" class="btn btn-brand btn-sm btn-upper">hire</button>
+													</div>
+												</div>
+												<div class="kt-widget__subhead">
+													<a href="#"><i class="flaticon2-new-email"></i>sergei@ford .com</a>
+													<a href="#"><i class="flaticon2-calendar-3"></i>Angular Developer</a>
+													<a href="#"><i class="flaticon2-placeholder"></i>Germany</a>
+												</div>
+												<div class="kt-widget__info">
+													<div class="kt-widget__desc">
+														I distinguish three main text objektive could be merely to inform people.<br>
+														A second could be persuade people.You want people to bay objective
+													</div>
+													<div class="kt-widget__progress">
+														<div class="kt-widget__text">
+															Progress
+														</div>
+														<div class="progress" style="height: 5px;width: 100%;">
+															<div class="progress-bar kt-bg-brand" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+														</div>
+														<div class="kt-widget__stats">
+															46%
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="kt-widget__bottom">
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-piggy-bank"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Earnings</span>
+													<span class="kt-widget__value"><span>$</span>349,900</span>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-confetti"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Expenses</span>
+													<span class="kt-widget__value"><span>$</span>654,200</span>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-pie-chart"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Net</span>
+													<span class="kt-widget__value"><span>$</span>876,323</span>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-file-2"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">54 Tasks</span>
+													<a href="#" class="kt-widget__value kt-font-brand">View</a>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-chat-1"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">683 Comments</span>
+													<a href="#" class="kt-widget__value kt-font-brand">View</a>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-network"></i>
+												</div>
+												<div class="kt-widget__details">
+													<div class="kt-section__content kt-section__content--solid">
+														<div class="kt-media-group">
+															<a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="John Myer">
+																<img src="assets/media/users/100_1.jpg" alt="image">
+															</a>
+															<a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Alison Brandy">
+																<img src="assets/media/users/100_10.jpg" alt="image">
+															</a>
+															<a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Selina Cranson">
+																<img src="assets/media/users/100_11.jpg" alt="image">
+															</a>
+															<a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Micheal York">
+																<img src="assets/media/users/100_3.jpg" alt="image">
+															</a>
+															<a href="#" class="kt-media kt-media--sm kt-media--circle" data-toggle="kt-tooltip" data-skin="brand" data-placement="top" title="" data-original-title="Micheal York">
+																<span>+5</span>
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!--end:: Portlet-->
 
 
 
