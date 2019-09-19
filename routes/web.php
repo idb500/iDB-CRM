@@ -27,7 +27,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('products','ProductController');
     // Route::resource('contact','ContactController');
     Route::resource('contact', 'ContactController');
-Route::get('users-list', 'ContactController@usersList');
+   Route::get('users-list', 'ContactController@usersList');
+
+   //stage controller
+   Route::resource('stage', 'StageController');
+   Route::get('stages-list', 'StageController@stagesList');
 });
 
 // Update Company Profile

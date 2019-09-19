@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use Redirect,Response,DB,Config;
 use Datatables;
 
-class ContactController extends Controller
+class StageController extends Controller
 {
-     /**
+   
+ /**
      * Create a new controller instance.
      *
      * @return void
@@ -25,14 +27,15 @@ class ContactController extends Controller
      */
     public function index()
     {
-    return view('contact.index');
+    return view('stage.index');
     }
 
     
-    public function usersList()
+    public function stagesList()
     {
-        $contact = DB::table('contact')->select('*');
-        return datatables()->of($contact)
+        $stage = DB::table('stages')->select('*');
+        return datatables()->of($stage)
             ->make(true);
     }
+
 }
