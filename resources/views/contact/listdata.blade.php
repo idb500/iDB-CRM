@@ -21,8 +21,8 @@
 											</div>
 											<div class="kt-widget__content">
 												<div class="kt-widget__head">
-													<a href="http://localhost:8080/nagar/lms/list/{{ $role->id }}" class="kt-widget__username">
-														{{ $role->list_name}}
+													<a href="" class="kt-widget__username">
+														{{ $role->domain_name }}
 														<i class="flaticon2-correct kt-font-success"></i>
 													</a>
 													<div class="kt-widget__action">

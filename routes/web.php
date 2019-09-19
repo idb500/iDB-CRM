@@ -31,6 +31,7 @@ Route::get('/home', 'ApiKeyController@index')->name('home');
     Route::get('users-list', 'ContactController@usersList');
     Route::resource('stage', 'StageController');
     Route::resource('category', 'CategoryController');
+    Route::get('list/{listid}', "ContactController@listdata");
 
 });
 
