@@ -24,6 +24,7 @@
 											User Management
 										</h3>
 									</div>
+									@can('user-list')
 									<div class="kt-portlet__head-toolbar">
 										<div class="kt-portlet__head-wrapper">
 											<div class="kt-portlet__head-actions">
@@ -35,6 +36,7 @@
 											</div>
 										</div>
 									</div>
+									@endcan
 								</div>
 								<div class="kt-portlet__body">
 					

@@ -21,18 +21,17 @@ Auth::routes();
 Route::get('/home', 'ApiKeyController@index')->name('home');
 
 // Role, Users
-Route::group(['middleware' => ['auth']], function() {
+    Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles','RoleController');
     Route::resource('users', 'UserController');
     Route::get('userslist', 'UserController@usersList'); 
     Route::resource('products','ProductController');
     // Route::resource('contact','ContactController');
     Route::resource('contact', 'ContactController');
-   Route::get('users-list', 'ContactController@usersList');
+    Route::get('users-list', 'ContactController@usersList');
+    Route::resource('stage', 'StageController');
+    Route::resource('category', 'CategoryController');
 
-   //stage controller
-   Route::resource('stage', 'StageController');
-   Route::get('stages-list', 'StageController@stagesList');
 });
 
 // Update Company Profile
