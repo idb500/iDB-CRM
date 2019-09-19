@@ -1,35 +1,50 @@
 @extends('layouts.app')
 
-
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Role Management</h2>
-        </div>
-        <div class="pull-right">
-        @can('role-create')
-            <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
-            @endcan
-        </div>
-    </div>
-</div>
 
-
-@if ($message = Session::get('success'))
+<script src="http://code.jquery.com/jquery-1.12.3.js"></script>
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+							
+							<div class="kt-portlet kt-portlet--mobile">
+								<div class="kt-portlet__head kt-portlet__head--lg">
+									<div class="kt-portlet__head-label">
+										<span class="kt-portlet__head-icon">
+											<i class="kt-font-brand flaticon2-line-chart"></i>
+										</span>
+										<h3 class="kt-portlet__head-title">
+                                        Role Management
+										</h3>
+									</div>
+									<div class="kt-portlet__head-toolbar">
+										<div class="kt-portlet__head-wrapper">
+											<div class="kt-portlet__head-actions">
+												
+												<a href="{{ route('roles.create') }}" class="btn btn-brand btn-elevate btn-icon-sm">
+													<i class="la la-plus"></i>
+													Create New Role
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="kt-portlet__body">
+                                @if ($message = Session::get('success'))
     <div class="alert alert-success">
         <p>{{ $message }}</p>
     </div>
 @endif
-
-
-<table class="table table-bordered">
-  <tr>
-     <th>No</th>
-     <th>Name</th>
-     <th width="280px">Action</th>
-  </tr>
-    @foreach ($roles as $key => $role)
+									<!--begin: Datatable -->
+									<table class="table table-striped- table-bordered table-hover table-checkable" id="table">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Name</th>
+												
+												<th>Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+                                        @foreach ($roles as $key => $role)
     <tr>
         <td>{{ ++$i }}</td>
         <td>{{ $role->name }}</td>
@@ -46,10 +61,16 @@
         </td>
     </tr>
     @endforeach
-</table>
+										</tbody>
+									</table>
 
-
-{!! $roles->render() !!}
-
-
+									<!--end: Datatable -->
+								</div>
+							</div>
+						</div>
+                        <script>
+  $(document).ready(function() {
+    $('#table').DataTable();
+} );
+ </script>
 @endsection

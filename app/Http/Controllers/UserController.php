@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Spatie\Permission\Models\Role;
-use DB;
+use Redirect,Response,DB,Config;
+use Datatables;
 use Hash;
 
 
@@ -34,11 +35,25 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    // public function index(Request $request)
+    // {
+    //     $data = User::orderBy('id','DESC')->paginate(5);
+    //     return view('users.index',compact('data'))
+    //         ->with('i', ($request->input('page', 1) - 1) * 5);
+    // }
+     
+    public function index()
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+         return view('users.index');
+    }
+    public function usersList()
+    {
+        return datatables()->of(User::select('*'))
+             ->addColumn('role', 'role_button')
+             ->addColumn('action', 'action_button')
+             ->rawColumns(['role','action'])
+            ->addIndexColumn()
+            ->make(true);
     }
 
 

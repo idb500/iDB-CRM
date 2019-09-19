@@ -2,58 +2,92 @@
 
 
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Users Management</h2>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>
-        </div>
-    </div>
-</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
 
 
-@if ($message = Session::get('success'))
+<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+
+				
+
+						<!-- end:: Subheader -->
+
+						<!-- begin:: Content -->
+						<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+				
+							<div class="kt-portlet kt-portlet--mobile">
+								<div class="kt-portlet__head kt-portlet__head--lg">
+									<div class="kt-portlet__head-label">
+										<span class="kt-portlet__head-icon">
+											<i class="kt-font-brand flaticon2-line-chart"></i>
+										</span>
+										<h3 class="kt-portlet__head-title">
+											User Management
+										</h3>
+									</div>
+									<div class="kt-portlet__head-toolbar">
+										<div class="kt-portlet__head-wrapper">
+											<div class="kt-portlet__head-actions">
+												
+												<a href="{{ route('users.create') }}" class="btn btn-brand btn-elevate btn-icon-sm">
+													<i class="la la-plus"></i>
+													Create New User
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="kt-portlet__body">
+					
+								@if ($message = Session::get('success'))
 <div class="alert alert-success">
   <p>{{ $message }}</p>
 </div>
 @endif
+            <table class="table table-bordered" id="laravel_datatable">
+               <thead>
+                  <tr>
+                     <th>Id</th>
+                     <th>Name</th>
+                     <th>Email</th>
+                     <th>Roles</th>
+					 <th>Action</th>
+                  </tr>
+               </thead>
+            </table>
+   
+   <script>
+   $(document).ready( function () {
+    $('#laravel_datatable').DataTable({
+           processing: true,
+           serverSide: true,
+           ajax: "{{ url('userslist') }}",
+           columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'name', name: 'name' },
+                    { data: 'email', name: 'email' },
+					{ data: 'role', name: 'role' },
+                    { data: 'action', name: 'action' }
+                 ]
+        });
+     });
+  </script>
+								</div>
+							</div>
+						</div>
 
+						<!-- end:: Content -->
+					</div>
 
-<table class="table table-bordered">
- <tr>
-   <th>No</th>
-   <th>Name</th>
-   <th>Email</th>
-   <th>Roles</th>
-   <th width="280px">Action</th>
- </tr>
- @foreach ($data as $key => $user)
-  <tr>
-    <td>{{ ++$i }}</td>
-    <td>{{ $user->name }}</td>
-    <td>{{ $user->email }}</td>
-    <td>
-      @if(!empty($user->getRoleNames()))
-        @foreach($user->getRoleNames() as $v)
-           <label class="badge badge-success">{{ $v }}</label>
-        @endforeach
-      @endif
-    </td>
-    <td>
-       <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
-       <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
-        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-        {!! Form::close() !!}
-    </td>
-  </tr>
- @endforeach
-</table>
+				
+				</div>
+			</div>
+		</div>
 
+		<!-- end:: Page -->
 
-{!! $data->render() !!}
+		<!-- begin::Quick Panel -->
+	
+
 
 
 @endsection
