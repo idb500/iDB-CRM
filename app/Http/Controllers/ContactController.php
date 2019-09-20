@@ -35,9 +35,9 @@ class ContactController extends Controller
     $stages = \DB::table('users')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '=', 'Super Admin'],['users.id', '=', $id]])->count();   
   
     if($stages=='1'){
-    $contact = \DB::table('list')->get();   
+    $contact = \DB::table('list')->select('list.*','users.name as uname')->join("users", "list.created_by", "=", "users.id")->get();   
      }else{
-        $contact = \DB::table('list')->select('list.*')->where('list.assign_marketing_head' , '=' , $id)->get();
+        $contact = \DB::table('list')->select('list.*','users.name as uname')>join("users", "list.created_by", "=", "users.id")->where('list.assign_marketing_head' , '=' , $id)->get();
      }
         return view('contact.index',compact('contact'));
     }

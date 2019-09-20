@@ -8,8 +8,10 @@
 
 <!--begin:: Portlet-->
 @foreach ($contact as $key => $role)
-
-
+<?php
+$contactcount = \DB::table('contact')->where(['list_id'=>$role->id])->count();   
+$latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('id', 'DESC')->first();   
+?>
 <div class="kt-portlet">
 								<div class="kt-portlet__body">
 									<div class="kt-widget kt-widget--user-profile-3">
@@ -31,26 +33,26 @@
 													</a>
 													@endcan
 													<div class="kt-widget__action">
-                                       <a href="http://localhost/lms/list/{{ $role->id }}">
+                                       <a href="{{ url('/list') }}/{{ $role->id }}">
 														<button type="button" class="btn btn-label-success btn-sm btn-upper">Details</button></a>&nbsp;
 														<button type="button" data-toggle="modal" data-target="#kt_scrollable_modal_1" id="{{ $role->id }}" class="btn btn-brand btn-sm btn-upper view_data">Add Note</button>
 													</div>
 												</div>
 												<div class="kt-widget__subhead">
-													<a href="#"><i class="flaticon2-new-email"></i>jason@siastudio.com</a>
-													<a href="#"><i class="flaticon2-calendar-3"></i>PR Manager </a>
+													<a href="#"><i class="flaticon2-new-email"></i>{{ date('d M, Y h:i a',strtotime($role->created_date)) }}</a>
+													<a href="#"><i class="flaticon2-calendar-3"></i>{{ $role->uname }} </a>
 													<a href="#"><i class="flaticon2-placeholder"></i>Melbourne</a>
 												</div>
 												<div class="kt-widget__info">
 													<div class="kt-widget__desc">
-                                          <b>Filter Used:</b>
+                                          <b>Filter Used:</b> {{$contactcount}}
                                          
 													</div>
 													
                                     </div>
                                     <div class="kt-widget__info">
 													<div class="kt-widget__desc">
-                                          <b>Last Note:</b>
+                                          <b>Last Note:</b> {{ $latestnote->description }}
 													</div>
 													
 												</div>
@@ -123,12 +125,12 @@
 <label for="recipient-name" class="form-control-label">Subject:</label>
 <input class="form-control" name="created_by" type="hidden" value="{{ Auth::user()->id }}">
 <input type="hidden" class="form-control" name="contactid" id="contactid" value>
-<input type="text" class="form-control" name="subject">
+<input type="text" class="form-control" name="subject" required>
 </div>
 
 <div class="form-group">
 <label for="message-text" class="form-control-label">Description:</label>
-<textarea class="form-control" name="description" rows="3"></textarea>
+<textarea class="form-control" name="description" rows="3" required></textarea>
 </div>
 
 
