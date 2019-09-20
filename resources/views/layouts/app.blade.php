@@ -81,7 +81,7 @@
 <!-- begin:: Header Mobile -->
 <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
     <div class="kt-header-mobile__logo">
-        <a href="{{ url('/') }}">
+        <a href="{{ url('home') }}">
             <img alt="Logo" src="{{ asset('assets/media/logos/logo.png') }}" />
         </a>
     </div>
@@ -105,7 +105,7 @@
             <!-- begin:: Brand -->
             <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
                 <div class="kt-aside__brand-logo">
-                    <a href="{{ url('/') }}">
+                    <a href="{{ url('home') }}">
                         <img alt="Logo" src="{{ asset('assets/media/logos/logo.png') }}" />
                     </a>
                 </div>
@@ -172,14 +172,7 @@
                                     </ul>
                             </div>
                         </li>
-                        <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--bottom-1" aria-haspopup="true" data-ktmenu-submenu-toggle="click"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-hourglass-1"></i><span class="kt-menu__link-text">Help</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--brand kt-badge--rounded">2</span></span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                            <div class="kt-menu__submenu kt-menu__submenu--up"><span class="kt-menu__arrow"></span>
-                                <ul class="kt-menu__subnav">
-                                    <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--bottom-1" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Help</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--brand kt-badge--rounded">2</span></span></span></li>
-                                    <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Support</span></a></li>
-                                        </ul>
-                            </div>
-                        </li>
+                       
                     </ul>
                 </div>
             </div>

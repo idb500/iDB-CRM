@@ -15,7 +15,9 @@
 									<div class="kt-widget kt-widget--user-profile-3">
 										<div class="kt-widget__top">
                               <div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden-">
-                              {{ $role->list_name}}
+							  {{ date('d',strtotime($role->created_date)) }}<br>
+				{{ date('M',strtotime($role->created_date)) }}<br>
+				{{ date('Y',strtotime($role->created_date)) }}
                 </div>
 											<div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
 												JM
