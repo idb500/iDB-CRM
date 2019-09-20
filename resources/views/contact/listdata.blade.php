@@ -3,6 +3,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!--begin:: Portlet-->
 
+
 <form action="{{ url('/store') }}" method="post">
 @can('contact-assigned')
         {{ csrf_field() }}
