@@ -127,7 +127,13 @@
                                         <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="click" data-ktmenu-submenu-mode="accordion"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">Contact</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                                             <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                                                 <ul class="kt-menu__subnav">
+                                                
+                                                @can('list')
                                                     <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('/contact') }}" class="kt-menu__link "><span class="kt-menu__link-text"> List</span></a></li>
+                                                    @endcan
+                                                    @can('contact-list')
+                                                    <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('/contactlist') }}" class="kt-menu__link "><span class="kt-menu__link-text"> Contact List</span></a></li>
+                                                    @endcan
                                                     <!--<li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><span class="kt-menu__link-text">Stage</span></a></li>-->
                                                     </ul>
                                             </div>

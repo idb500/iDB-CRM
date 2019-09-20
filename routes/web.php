@@ -32,7 +32,8 @@ Route::get('/home', 'ApiKeyController@index')->name('home');
     Route::resource('stage', 'StageController');
     Route::resource('category', 'CategoryController');
     Route::get('list/{listid}', "ContactController@listdata");
-
+    Route::post('store', "ContactController@store");
+    Route::get('contactlist', "ContactController@contactlist");
 });
 
 // Update Company Profile
