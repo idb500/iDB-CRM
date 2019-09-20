@@ -17,9 +17,13 @@ class ContactController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    function __construct()
     {
-        $this->middleware('auth');
+         $this->middleware('permission:list');
+         $this->middleware('permission:contact');
+         $this->middleware('permission:contact-assigned', ['only' => ['store']]);
+         $this->middleware('permission:contact-list', ['only' => ['contactlist']]);
+         $this->middleware('permission:list-note', ['only' => ['listnote']]);
     }
 
     /**

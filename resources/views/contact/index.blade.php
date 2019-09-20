@@ -35,7 +35,9 @@ $latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('i
 													<div class="kt-widget__action">
                                        <a href="{{ url('/list') }}/{{ $role->id }}">
 														<button type="button" class="btn btn-label-success btn-sm btn-upper">Details</button></a>&nbsp;
+														@can('list-note')
 														<button type="button" data-toggle="modal" data-target="#kt_scrollable_modal_1" id="{{ $role->id }}" class="btn btn-brand btn-sm btn-upper view_data">Add Note</button>
+													@endcan
 													</div>
 												</div>
 												<div class="kt-widget__subhead">

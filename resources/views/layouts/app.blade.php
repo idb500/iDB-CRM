@@ -154,10 +154,12 @@
                             <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                                 <ul class="kt-menu__subnav">
                                     <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--bottom" aria-haspopup="true" data-ktmenu-link-redirect="1"><span class="kt-menu__link"><span class="kt-menu__link-text">Customers</span></span></li>
+                                    @can('role-list')
                                     <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('roles.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Roles</span></a></li>
-                                   
+                                    @endcan
+                                    @can('user-list')
                                     <li class="kt-menu__item " aria-haspopup="true" data-ktmenu-link-redirect="1"><a href="{{ route('users.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Users</span></a></li>
-                                   
+                                    @endcan
                                         </ul>
                             </div>
                         </li>
@@ -166,9 +168,12 @@
                                 <ul class="kt-menu__subnav">
                                     <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--bottom-2" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Settings</span></span></li>
                                     
+            @can('category-list')
                                     <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('category.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Category</span></a></li>
-                                   
+                                    @endcan
+            @can('stage-list')
                                     <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('stage.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Stages</span></a></li>
+                                    @endcan
                                     </ul>
                             </div>
                         </li>

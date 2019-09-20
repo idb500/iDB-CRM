@@ -42,6 +42,9 @@
 
 
 @foreach ($contact as $key => $role)
+<?php
+$latestnote = \DB::table('list_note')->where(['list_id'=>$role->list_id])->orderBy('id', 'DESC')->first();   
+?>
 <div class="kt-portlet">
 <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
 <input type="checkbox" class="checkbox" name="checkid[]" data-id="{{$role->id}}" value="{{ $role->id }}">
@@ -81,7 +84,7 @@
                     </div>
                     <div class="kt-widget__info">
                         <div class="kt-widget__desc">
-                            <b>Last Note :</b>
+                            <b>Last Note :</b> {{ $latestnote->description }}
                         </div>
                        
                     </div>
