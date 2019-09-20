@@ -21,7 +21,7 @@
             <select class="form-control" name="assignedto">
                 <option>Select name</option>
             @foreach($users as $value)
- <option value="{{ $value->id }}">{{ $value->name }}</option>
+ <option value="{{ $value->id }}">{{ $value->name }}-{{ $value->rname }}</option>
  @endforeach
             </select>
         </div>

@@ -45,7 +45,7 @@ class ContactController extends Controller
     {
     // return view('contact.index');
     $id2= Auth::user()->id;
-    $users = \DB::table('users')->select('users.*')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '!=', 'Super Admin'],['roles.name', '!=', 'Marketing Head']])->get(); 
+    $users = \DB::table('users')->select('users.*','roles.name as rname')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '!=', 'Super Admin'],['roles.name', '!=', 'Marketing Head']])->get(); 
     $stages = \DB::table('users')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '=', 'Super Admin'],['users.id', '=', $id2]])->count();   
   
     if($stages=='1'){
