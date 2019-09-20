@@ -8,8 +8,10 @@
 
 <!--begin:: Portlet-->
 @foreach ($contact as $key => $role)
-
-
+<?php
+$contactcount = \DB::table('contact')->where(['list_id'=>$role->id])->count();   
+$latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('id', 'DESC')->first();   
+?>
 <div class="kt-portlet">
 								<div class="kt-portlet__body">
 									<div class="kt-widget kt-widget--user-profile-3">
@@ -31,33 +33,38 @@
 													</a>
 													@endcan
 													<div class="kt-widget__action">
-                                       <a href="http://localhost/lms/list/{{ $role->id }}">
+                                       <a href="{{ url('/list') }}/{{ $role->id }}">
 														<button type="button" class="btn btn-label-success btn-sm btn-upper">Details</button></a>&nbsp;
 														<button type="button" data-toggle="modal" data-target="#kt_scrollable_modal_1" id="{{ $role->id }}" class="btn btn-brand btn-sm btn-upper view_data">Add Note</button>
 													</div>
 												</div>
 												<div class="kt-widget__subhead">
-													<a href="#"><i class="flaticon2-calendar-3"></i>PR Manager </a>
-													<a href="#"><i class="flaticon2-placeholder"></i>Melbourne</a>
+												<a href="#"><i class="flaticon-time"></i>{{ date('d M, Y h:i a',strtotime($role->created_date)) }}</a>
+													<a href="#"><i class="flaticon2-calendar-3"></i>{{ $role->uname }} </a>
 												</div>
 												<div class="kt-widget__info">
 													<div class="kt-widget__desc">
-                                                   <b>Filter Used:</b>
+                                                   <b>Filter Used :</b> {{ $role->filter_condition }}
                                                 </div>
 													
-                                                   </div>
+												   </div>
+												   <div class="kt-widget__info">
+									<div class="kt-widget__desc">
+                                          <b>Total Contacts:</b> {{$contactcount}}
+													</div>
+													
+												</div>
                                     <div class="kt-widget__info">
-									<div class="kt-widget__desc">
-                                          <b>Last Note:</b>
+
+									
+
+													<div class="kt-widget__desc">
+                                          <b>Last Note:</b> {{ $latestnote->description }}
+
 													</div>
 													
 												</div>
-												<div class="kt-widget__info">
-									<div class="kt-widget__desc">
-                                          <b>Total Contacts:</b>
-													</div>
-													
-												</div>
+											
 
 											</div>
 										</div>
