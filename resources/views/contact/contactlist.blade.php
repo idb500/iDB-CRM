@@ -1,36 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!--begin:: Portlet-->
 
-<form action="{{ url('/store') }}" method="post">
-@can('contact-assigned')
-        {{ csrf_field() }}
-		<div class="col-xs-6 col-sm-6 col-md-6">
-        <div class="form-group">
-            <label for="select all">Select All</label>
-			<input class="form-control" name="created_by" type="hidden" value="{{ Auth::user()->id }}">
-            
-			<input type="checkbox" id="check_all">
-        </div>
-		</div>
-		<div class="col-xs-6 col-sm-6 col-md-6">
-        <div class="form-group">
-            <label for="description">Assigned To</label>
-            <select class="form-control" name="assignedto">
-                <option>Select name</option>
-            @foreach($users as $value)
- <option value="{{ $value->id }}">{{ $value->name }}</option>
- @endforeach
-            </select>
-        </div>
-		</div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-		@endcan
 @foreach ($contact as $key => $role)
 <div class="kt-portlet">
-<input type="checkbox" class="checkbox" name="checkid[]" data-id="{{$role->id}}" value="{{ $role->id }}">
-								<div class="kt-portlet__body">
+							<div class="kt-portlet__body">
 								
 									<div class="kt-widget kt-widget--user-profile-3">
 										<div class="kt-widget__top">
@@ -129,19 +102,5 @@
 							@endforeach
 							<!--end:: Portlet-->
                        
-							</form>
-							<script type="text/javascript">
-$(document).ready(function () {
-	$('#check_all').on('click', function(e) {
-	 if($(this).is(':checked',true))  
-	 {
-		$(".checkbox").prop('checked', true);  
-	 } else {  
-		$(".checkbox").prop('checked',false);  
-	 }  
-	});
-});
-	</script>
-
-
+						
 @endsection

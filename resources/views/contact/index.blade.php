@@ -21,10 +21,12 @@
 											</div>
 											<div class="kt-widget__content">
 												<div class="kt-widget__head">
-													<a href="http://localhost/lms/list/{{ $role->id }}" class="kt-widget__username">
+												@can('contact')
+													<a href="{{ url('/list') }}/{{ $role->id }}" class="kt-widget__username">
 														{{ $role->list_name}}
 														<i class="flaticon2-correct kt-font-success"></i>
 													</a>
+													@endcan
 													<div class="kt-widget__action">
                                        <a href="http://localhost/lms/list/{{ $role->id }}">
 														<button type="button" class="btn btn-label-success btn-sm btn-upper">Details</button></a>&nbsp;
