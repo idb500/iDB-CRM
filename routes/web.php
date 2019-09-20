@@ -33,6 +33,7 @@ Route::get('/home', 'ApiKeyController@index')->name('home');
     Route::resource('category', 'CategoryController');
     Route::get('list/{listid}', "ContactController@listdata");
     Route::post('store', "ContactController@store");
+    Route::post('listnote', "ContactController@listnote");
     Route::get('contactlist', "ContactController@contactlist");
 });
 

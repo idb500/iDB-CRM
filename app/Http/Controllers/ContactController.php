@@ -87,4 +87,17 @@ class ContactController extends Controller
      }
         return view('contact.contactlist',compact('contact'));
     }
+    public function listnote(Request $request)
+    {
+       
+        $input = $request->all();
+        $contactid = $input['contactid']; 
+       $created_by = $input['created_by'];     
+       $subject = $input['subject']; 
+       $description = $input['description']; 
+        \DB::table('list_note')->insert(['list_id'=>$contactid, 'subject'=>$subject,'description'=>$description,'created_by'=>$created_by,'created_at'=>date('Y-m-d H:i:s')]);
+        return redirect()->route('contact.index')
+                        ->with('success','Note Added successfully');
+
+    }
 }
