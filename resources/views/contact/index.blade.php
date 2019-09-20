@@ -37,25 +37,31 @@
 													</div>
 												</div>
 												<div class="kt-widget__subhead">
-													<a href="#"><i class="flaticon2-new-email"></i>jason@siastudio.com</a>
 													<a href="#"><i class="flaticon2-calendar-3"></i>PR Manager </a>
 													<a href="#"><i class="flaticon2-placeholder"></i>Melbourne</a>
 												</div>
 												<div class="kt-widget__info">
 													<div class="kt-widget__desc">
-                                          <b>Filter Used:</b>
-                                         
-													</div>
+                                                   <b>Filter Used:</b>
+                                                </div>
 													
-                                    </div>
+                                                   </div>
                                     <div class="kt-widget__info">
-													<div class="kt-widget__desc">
+									<div class="kt-widget__desc">
                                           <b>Last Note:</b>
 													</div>
 													
 												</div>
+												<div class="kt-widget__info">
+									<div class="kt-widget__desc">
+                                          <b>Total Contacts:</b>
+													</div>
+													
+												</div>
+
 											</div>
 										</div>
+										
 										<div class="kt-widget__bottom">
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
@@ -63,7 +69,7 @@
 												</div>
 												<div class="kt-widget__details">
 													<span class="kt-widget__title">Total Campaign Done</span>
-													<span class="kt-widget__value"><span>$</span>249,500</span>
+													<span class="kt-widget__value"><span></span>24500</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -72,7 +78,7 @@
 												</div>
 												<div class="kt-widget__details">
 													<span class="kt-widget__title">Total Unsubscriber</span>
-													<span class="kt-widget__value"><span>$</span>164,700</span>
+													<span class="kt-widget__value"><span></span>164</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -81,7 +87,7 @@
 												</div>
 												<div class="kt-widget__details">
 													<span class="kt-widget__title">Total Blacklisted</span>
-													<span class="kt-widget__value"><span>$</span>782,300</span>
+													<span class="kt-widget__value"><span></span>78</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -90,7 +96,7 @@
 												</div>
 												<div class="kt-widget__details">
 													<span class="kt-widget__title">Total Move to Opportunity</span>
-													<span class="kt-widget__value"><span>$</span>782,300</span>
+													<span class="kt-widget__value"><span></span>782</span>
 												</div>
 											</div>
 											
@@ -123,12 +129,12 @@
 <label for="recipient-name" class="form-control-label">Subject:</label>
 <input class="form-control" name="created_by" type="hidden" value="{{ Auth::user()->id }}">
 <input type="hidden" class="form-control" name="contactid" id="contactid" value>
-<input type="text" class="form-control" name="subject">
+<input type="text" class="form-control" name="subject" required>
 </div>
 
 <div class="form-group">
 <label for="message-text" class="form-control-label">Description:</label>
-<textarea class="form-control" name="description" rows="3"></textarea>
+<textarea class="form-control" name="description" rows="3" required></textarea>
 </div>
 
 

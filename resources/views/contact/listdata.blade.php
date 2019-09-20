@@ -59,7 +59,9 @@
                 </div>
                 <div
                     class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
-                    JM
+                    {{ date('d',strtotime($role->created_date)) }}<br>
+				{{ date('M',strtotime($role->created_date)) }}<br>
+				{{ date('Y',strtotime($role->created_date)) }}
                 </div>
                 <div class="kt-widget__content">
                     <div class="kt-widget__head">
@@ -68,32 +70,20 @@
                             <i class="flaticon2-correct kt-font-success"></i>
                         </a>
                         <div class="kt-widget__action">
-                            <button type="button" class="btn btn-label-success btn-sm btn-upper">ask</button>&nbsp;
-                            <button type="button" class="btn btn-brand btn-sm btn-upper">hire</button>
+                            <button type="button" class="btn btn-label-success btn-sm btn-upper">Fresh</button>&nbsp;
+                            <button type="button" class="btn btn-brand btn-sm btn-upper">Detail</button>
                         </div>
                     </div>
                     <div class="kt-widget__subhead">
-                        <a href="#"><i class="flaticon2-new-email"></i>jason@siastudio.com</a>
-                        <a href="#"><i class="flaticon2-calendar-3"></i>PR Manager </a>
-                        <a href="#"><i class="flaticon2-placeholder"></i>Melbourne</a>
+                        <a href="#"><i class="flaticon2-new-email"></i> {{ $role->registrant_email }}</a>
+                        <a href="#"><i class="flaticon2-calendar-3"></i>{{ $role->	domain_registrar_name }} </a>
+                        <a href="#"><i class="flaticon2-placeholder"></i>{{$role->registrant_phone}}</a>
                     </div>
                     <div class="kt-widget__info">
                         <div class="kt-widget__desc">
-                            I distinguish three main text objektive could be merely to inform people.
-                            <br> A second could be persuade people.You want people to bay objective
+                            <b>Last Note :</b>
                         </div>
-                        <div class="kt-widget__progress">
-                            <div class="kt-widget__text">
-                                Progress
-                            </div>
-                            <div class="progress" style="height: 5px;width: 100%;">
-                                <div class="progress-bar kt-bg-success" role="progressbar" style="width: 65%;"
-                                    aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="kt-widget__stats">
-                                78%
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -103,8 +93,8 @@
                         <i class="flaticon-piggy-bank"></i>
                     </div>
                     <div class="kt-widget__details">
-                        <span class="kt-widget__title">Earnings</span>
-                        <span class="kt-widget__value"><span>$</span>249,500</span>
+                        <span class="kt-widget__title">Total Outgoing Calls</span>
+                        <span class="kt-widget__value"><span></span>249</span>
                     </div>
                 </div>
                 <div class="kt-widget__item">
@@ -112,8 +102,8 @@
                         <i class="flaticon-confetti"></i>
                     </div>
                     <div class="kt-widget__details">
-                        <span class="kt-widget__title">Expenses</span>
-                        <span class="kt-widget__value"><span>$</span>164,700</span>
+                        <span class="kt-widget__title">Total Incoming Calls</span>
+                        <span class="kt-widget__value"><span></span>164</span>
                     </div>
                 </div>
                 <div class="kt-widget__item">
@@ -121,28 +111,20 @@
                         <i class="flaticon-pie-chart"></i>
                     </div>
                     <div class="kt-widget__details">
-                        <span class="kt-widget__title">Net</span>
-                        <span class="kt-widget__value"><span>$</span>782,300</span>
+                        <span class="kt-widget__title">Total Note Addes</span>
+                        <span class="kt-widget__value"><span></span>782</span>
                     </div>
                 </div>
                 <div class="kt-widget__item">
                     <div class="kt-widget__icon">
-                        <i class="flaticon-file-2"></i>
+                        <i class="flaticon-pie-chart"></i>
                     </div>
                     <div class="kt-widget__details">
-                        <span class="kt-widget__title">73 Tasks</span>
-                        <a href="#" class="kt-widget__value kt-font-brand">View</a>
+                        <span class="kt-widget__title">Total Note Addes</span>
+                        <span class="kt-widget__value"><span></span>782</span>
                     </div>
                 </div>
-                <div class="kt-widget__item">
-                    <div class="kt-widget__icon">
-                        <i class="flaticon-chat-1"></i>
-                    </div>
-                    <div class="kt-widget__details">
-                        <span class="kt-widget__title">648 Comments</span>
-                        <a href="#" class="kt-widget__value kt-font-brand">View</a>
-                    </div>
-                </div>
+               
 
             </div>
         </div>
