@@ -26,15 +26,21 @@ Route::get('/home', 'ApiKeyController@index')->name('home');
     Route::resource('users', 'UserController');
     Route::get('userslist', 'UserController@usersList'); 
     Route::resource('products','ProductController');
-    // Route::resource('contact','ContactController');
-    Route::resource('contact', 'ContactController');
-    Route::get('users-list', 'ContactController@usersList');
     Route::resource('stage', 'StageController');
     Route::resource('category', 'CategoryController');
-    Route::get('list/{listid}', "ContactController@listdata");
-    Route::post('store', "ContactController@store");
-    Route::post('listnote', "ContactController@listnote");
-    Route::get('contactlist', "ContactController@contactlist");
+   
+   
+    Route::get('contact', ['uses'=>'ContactController@index', 'middleware' => ['permission:list']]);
+    Route::get('list/{listid}', ['uses'=>'ContactController@listdata', 'middleware' => ['permission:contact']]);
+    Route::post('store', ['uses'=>'ContactController@store', 'middleware' => ['permission:contact-assigned']]);
+    Route::post('listnote', ['uses'=>'ContactController@listnote', 'middleware' => ['permission:list-note']]);
+    Route::post('listnote2', ['uses'=>'ContactController@listnote2', 'middleware' => ['permission:list-note']]);
+    Route::post('listnote3', ['uses'=>'ContactController@listnote3', 'middleware' => ['permission:list-note']]);
+    Route::post('remainder', ['uses'=>'ContactController@remainder', 'middleware' => ['permission:list-note']]);
+ //   Route::get('users-list', 'ContactController@usersList');
+    
+  
+    Route::get('contactlist', ['uses'=>'ContactController@contactlist', 'middleware' => ['permission:contact-list']]);
 });
 
 // Update Company Profile

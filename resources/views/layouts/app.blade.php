@@ -131,6 +131,7 @@
                                                 @can('list')
                                                     <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('/contact') }}" class="kt-menu__link "><span class="kt-menu__link-text"> List</span></a></li>
                                                     @endcan
+                                                    
                                                     @can('contact-list')
                                                     <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('/contactlist') }}" class="kt-menu__link "><span class="kt-menu__link-text"> Contact List</span></a></li>
                                                     @endcan
@@ -473,6 +474,7 @@
 <script src="{{ asset('assets/plugins/general/block-ui/jquery.blockUI.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/general/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/general/js/global/integration/plugins/bootstrap-datepicker.init.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/pages/crud/forms/widgets/bootstrap-datetimepicker.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/general/bootstrap-datetime-picker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/general/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/general/js/global/integration/plugins/bootstrap-timepicker.init.js') }}" type="text/javascript"></script>
