@@ -26,7 +26,7 @@ Route::get('/home', 'ApiKeyController@index')->name('home');
     Route::resource('users', 'UserController');
     Route::get('userslist', 'UserController@usersList'); 
     Route::resource('products','ProductController');
-    Route::resource('stage', 'StageController');
+    Route::resource('stage', 'StageController');    
     Route::resource('category', 'CategoryController');
    
    
@@ -59,3 +59,66 @@ Route::post('api/regenerate', 'ApiKeyController@ApiRegenerate')->name('home');
 Route::get('payment', ['as' => 'payment', 'uses' => 'PaymentController@payment']);
 # Status Route
 Route::get('payment/status', ['as' => 'payment.status', 'uses' => 'PaymentController@status']);
+
+// Ticket Status View
+Route::get('tickets/settings/status', 'TicketController@TicketStatus');
+
+// Ticket Status Create View
+Route::get('ticket/settings/status/create', 'TicketController@TicketStatusCreate');
+
+// Ticket Status Create
+Route::post('ticket/settings/status/store', 'TicketController@TicketStatusStore');
+
+// Ticket Status Edit View
+Route::get('ticket/settings/status/{id}', 'TicketController@TicketStatusEdit');
+
+// Ticket Status Update
+Route::post('ticket/settings/status/update', 'TicketController@TicketStatusUpdate');
+
+// Ticket Status Delete
+Route::post('ticket/settings/status/delete', 'TicketController@TicketStatusDelete');
+
+/*********************************************************************************/
+
+// Priority View
+Route::get('tickets/settings/priority', 'TicketController@Priority');
+
+// Priority Create View
+Route::get('ticket/settings/priority/create', 'TicketController@TicketPriorityCreate');
+
+// Priority Create
+Route::post('ticket/settings/priority/store', 'TicketController@TicketPriorityStore');
+
+// Priority Edit View
+Route::get('ticket/settings/priority/{id}', 'TicketController@TicketPriorityEdit');
+
+// Priority Update
+Route::post('ticket/settings/priority/update', 'TicketController@TicketPriorityUpdate');
+
+// Priority Delete
+Route::post('ticket/settings/priority/delete', 'TicketController@TicketPriorityDelete');
+
+/*********************************************************************************/
+
+// Ticket Category View
+Route::get('tickets/settings/category', 'TicketController@Category');
+
+// Ticket Category Create View
+Route::get('ticket/settings/category/create', 'TicketController@TicketCategoryCreate');
+
+// Ticket Category Create
+Route::post('ticket/settings/category/store', 'TicketController@TicketCategoryStore');
+
+// Ticket Category Edit View
+Route::get('ticket/settings/category/{id}', 'TicketController@TicketCategoryEdit');
+
+// Ticket Category Update
+Route::post('ticket/settings/category/update', 'TicketController@TicketCategoryUpdate');
+
+// Ticket Category Delete
+Route::post('ticket/settings/category/delete', 'TicketController@TicketCategoryDelete');
+
+/******************************************************/
+Route::get('ticket/create', 'TicketController@TicketCreate');
+Route::get('tickets/', 'TicketController@index');
+Route::post('ticket/store/', 'TicketController@TicketStore');
