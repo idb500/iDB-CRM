@@ -37410,3 +37410,15 @@ body {
     .kt-footer .kt-footer__menu .kt-footer__menu-link:first-child {
       padding-left: 0;
       margin-left: 0; } }
+      .timerImg{
+        height: 35px;
+        opacity: .5;
+        margin-left: 38px;
+        margin-top: 20px;
+        margin-bottom: 5px;
+        }
+        .timertext{
+        margin-left: 8px;
+        font-size: 17px;
+        color: dimgray !important;
+        }

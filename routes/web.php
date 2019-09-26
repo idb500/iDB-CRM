@@ -19,7 +19,10 @@ Auth::routes();
 
 // Home Page
 Route::get('/home', 'ApiKeyController@index')->name('home');
-
+Route::get('/sales', 'CategoryController@sales');
+Route::get('/bigdata', 'CategoryController@bigdata');
+Route::get('/help', 'CategoryController@help');
+Route::get('/kb', 'CategoryController@kb');
 // Role, Users
     Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles','RoleController');
@@ -35,12 +38,29 @@ Route::get('/home', 'ApiKeyController@index')->name('home');
     Route::post('store', ['uses'=>'ContactController@store', 'middleware' => ['permission:contact-assigned']]);
     Route::post('listnote', ['uses'=>'ContactController@listnote', 'middleware' => ['permission:list-note']]);
     Route::post('listnote2', ['uses'=>'ContactController@listnote2', 'middleware' => ['permission:list-note']]);
-    Route::post('listnote3', ['uses'=>'ContactController@listnote3', 'middleware' => ['permission:list-note']]);
-    Route::post('remainder', ['uses'=>'ContactController@remainder', 'middleware' => ['permission:list-note']]);
+    Route::post('listnote_contact', ['uses'=>'ContactController@listnote_contact', 'middleware' => ['permission:list-note']]);
+    Route::post('listnote_contact_opportunity', ['uses'=>'ContactController@listnote_contact_opportunity', 'middleware' => ['permission:list-note']]);
+    Route::post('listnote_contact_lead', ['uses'=>'ContactController@listnote_contact_lead', 'middleware' => ['permission:list-note']]);
+    Route::post('remainder', ['uses'=>'ContactController@remainder']);
  //   Route::get('users-list', 'ContactController@usersList');
     
-  
+ 
     Route::get('contactlist', ['uses'=>'ContactController@contactlist', 'middleware' => ['permission:contact-list']]);
+    Route::get('opportunitylist', ['uses'=>'ContactController@opportunitylist']);
+    Route::get('leadlist', ['uses'=>'ContactController@leadlist']);
+    Route::get('transfer_opportunity/{id}', ['uses'=>'ContactController@transfer_opportunity']);
+    
+    Route::post('multiple_transfer_opportunity', ['uses'=>'ContactController@multiple_transfer_opportunity']);
+    Route::get('transfer_lead/{id}', ['uses'=>'ContactController@transfer_lead']);
+    
+    Route::post('multiple_transfer_lead', ['uses'=>'ContactController@multiple_transfer_lead']);
+    
+    Route::post('remaindercont', ['uses'=>'ContactController@remaindercont']);
+    Route::post('remainder_contact', ['uses'=>'ContactController@remainder_contact']);
+    Route::post('remainder_contact_opportunity', ['uses'=>'ContactController@remainder_contact_opportunity']);
+    Route::post('remainder_contact_lead', ['uses'=>'ContactController@remainder_contact_lead']);
+    Route::resource('note_type', 'Note_typeController');
+    Route::get('contactdetails/{id}', ['uses'=>'ContactController@contactdetails']);
 });
 
 // Update Company Profile

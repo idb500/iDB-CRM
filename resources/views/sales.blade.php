@@ -1,5 +1,5 @@
 @include('layouts.header')
-@include('layouts.left_side_bar')
+@include('layouts.left_side_bar_sales')
 @section('content')
 <div class="row">
 								<div class="col-lg-6 col-xl-4 order-lg-1 order-xl-1">

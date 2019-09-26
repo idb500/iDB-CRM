@@ -1,5 +1,5 @@
-@extends('layouts.app')
-
+@include('layouts.header')
+@include('layouts.left_side_bar_bigdata')
 
 @section('content')
      
@@ -9,6 +9,7 @@
 <!--begin:: Portlet-->
 @foreach ($contact as $key => $role)
 <?php
+
 $contactcount = \DB::table('contact')->where(['list_id'=>$role->id])->count();   
 $latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('id', 'DESC')->first();   
 ?>
@@ -29,7 +30,7 @@ $latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('i
 												@can('contact')
 													<a href="{{ url('/list') }}/{{ $role->id }}" class="kt-widget__username">
 														{{ $role->list_name}}
-														<i class="flaticon2-correct kt-font-success"></i>
+														
 													</a>
 													@endcan
 													<div class="kt-widget__action">
@@ -61,7 +62,7 @@ $latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('i
 									
 
 													<div class="kt-widget__desc">
-                                          <b>Last Note:</b> {{ $latestnote->description }}
+													@if($latestnote!='') {{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }} {{ $latestnote->description }}  @endif
 
 													</div>
 													
@@ -135,10 +136,15 @@ $latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('i
 <form action="{{ url('/listnote') }}" method="post">
 {{ csrf_field() }}
 <div class="form-group">
-<label for="recipient-name" class="form-control-label">Subject:</label>
+<label for="recipient-name" class="form-control-label">Type:</label>
 <input class="form-control" name="created_by" type="hidden" value="{{ Auth::user()->id }}">
 <input type="hidden" class="form-control" name="contactid" id="contactid" value>
-<input type="text" class="form-control" name="subject" required>
+<select class="form-control" name="typeid" required>
+                            <option>Select Type</option>
+                            @foreach($stag2 as $value)
+                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                            @endforeach
+                        </select>
 </div>
 
 <div class="form-group">
@@ -170,3 +176,4 @@ $latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('i
 </script>
 
 @endsection
+@include('layouts.footer')

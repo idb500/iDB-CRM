@@ -1,15 +1,14 @@
 @include('layouts.header')
 @include('layouts.left_side_bar')
 
-
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Edit Category</h2>
+            <h2>Create New Note Type</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('category.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('note_type.index') }}"> Back</a>
         </div>
     </div>
 </div>
@@ -27,21 +26,32 @@
 @endif
 
 
-{!! Form::model($user, ['method' => 'PATCH','route' => ['category.update', $user->id]]) !!}
+{!! Form::open(array('route' => 'note_type.store','method'=>'POST')) !!}
 <div class="row">
+
     <div class="col-xs-6 col-sm-6 col-md-6">
         <div class="form-group">
             <strong>Name:</strong>
             <input class="form-control" name="created_by" type="hidden" value="{{ Auth::user()->id }}">
-           
             {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+         
         </div>
     </div>
     </div>
+    <div class="row">
 
+<div class="col-xs-6 col-sm-6 col-md-6">
+    <div class="form-group">
+        <strong>Fa Fa Icon:</strong>
+       
+        {!! Form::text('fafaicon', null, array('placeholder' => 'Fa Fa Icon','class' => 'form-control')) !!}
+     
+    </div>
+</div>
+</div>
     <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6">
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </div>
 {!! Form::close() !!}

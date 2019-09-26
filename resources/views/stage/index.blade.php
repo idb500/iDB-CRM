@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@include('layouts.header')
+@include('layouts.left_side_bar')
 
 <script src="http://code.jquery.com/jquery-1.12.3.js"></script>
 @section('content')
@@ -40,9 +41,9 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Stage Name </th>
+						<th>Sub Stage Name </th>
 						<th>Validity</th>
-						<th>Category Name </th>
+						<th>Stage Name </th>
 						<th>Cteated By</th>
 						<th>Created Date </th>
 
@@ -84,3 +85,4 @@
 	});
 </script>
 @endsection
+@include('layouts.footer')

@@ -1,55 +1,24 @@
 @include('layouts.header')
 @include('layouts.left_side_bar_sales')
 @section('content')
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<div class="kt-portlet">
-<form action="{{ url('/multiple_transfer_opportunity') }}" method="post" class="kt-form kt-form--label-right">
-    <div class="kt-portlet__body">
-        <div class="form-group row">
-			
-           
-               
-					{{ csrf_field() }}
-					<div class="col-lg-2">
-					<input class="form-control" name="created_by" type="hidden" value="{{ Auth::user()->id }}">
-					<label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
-								<input type="checkbox" id="check_all"> Select All Contact
-								<span></span>
-				
-                    </div>
-
-                    <div class="col-lg-2">
-
-                        <select class="form-control kt-font-brand" style="width: 180px" name="assignedto">
-                            <!-- <option>Select Stage</option> -->
-                    
-                            <option value="1">Move To Opportunity</option>
-                        
-                        </select>
-					</div>
-					
-					<div class="col-lg-2">
-					<button type="submit" class="btn btn-primary">Submit</button>
-                       </div>
-        
-
-
-</div>  
 <span><b>Total List : </b>{{ $contactlistcount }}</span>
-    </div>
-
-</div>
 <?php $i=0; ?>
 @foreach ($contact as $key => $role)
+
 <?php
+
 $i++;
 $contactid=$role->id;
 
 $latestnote1 = \DB::table('list_note')->where(['contact_id'=>$contactid])->orderBy('id', 'DESC')->first();  
 if($latestnote1!=''){
 	$latestnote = \DB::table('list_note')->where(['contact_id'=>$contactid])->orderBy('id', 'DESC')->first();  
+	
 } else{
 	$latestnote = \DB::table('list_note')->where(['list_id'=>$role->list_id])->orderBy('id', 'DESC')->first(); 
+
 }
 $remainderlatest = \DB::table('contact_remainder')->where([['contact_id','=',$contactid],['datetime' , '>=' ,date('Y-m-d H:i:s')]])->orderBy('datetime', 'ASC')->first(); 
 
@@ -84,13 +53,8 @@ var x = setInterval(function() {
   }
 }, 1000);
 </script>
-
-
 <div class="kt-portlet">
-<label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
-<input type="checkbox" class="checkbox" name="checkid[]" data-id="{{$role->id}}" value="{{ $role->id }}">
-			<span></span>
-</label>
+
 							<div class="kt-portlet__body">
 								
 									<div class="kt-widget kt-widget--user-profile-3">
@@ -106,12 +70,12 @@ var x = setInterval(function() {
 												<div class="kt-widget__head">
 													<a href="" class="kt-widget__username">
 														{{ $role->registrant_name }}
-														
+													
 													</a>
 													<div class="kt-widget__action">
 													<a href="{{ url('/contactdetails') }}/{{ $role->id }}"><button type="button" class="btn btn-success btn-sm btn-upper view_data_remainder">Details</button></a>
 													
-													<a href="{{ url('/transfer_opportunity') }}/{{ $role->id }}"><button type="button" class="btn btn-info btn-sm btn-upper view_data_remainder">Move To Opportunity</button></a>
+														<button type="button" data-toggle="modal"  class="btn btn-success btn-sm btn-upper">Move To Client</button>
 													
 													@can('add-remainder')
 														<button type="button" data-toggle="modal" data-target="#kt_scrollable_modal_remainder" id="{{ $role->id }}" class="btn btn-success btn-sm btn-upper view_data_remainder">Add Remainder</button>
@@ -130,21 +94,21 @@ var x = setInterval(function() {
 												</div>
 												<div class="kt-widget__info">
 													<div class="kt-widget__desc">
-													<b>Last Note :</b> @if($latestnote!='') {{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }} {{ $latestnote->description }}  @endif
+													<b>Last Note :</b> @if($latestnote!='')  {{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }} {{ $latestnote->description }} @endif
+													
 													</div>
 												
 												</div>
 											</div>
 										</div>
-										
 										<div class="kt-widget__bottom">
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-piggy-bank"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">Total Campaign Note</span>
-													<span class="kt-widget__value"><span></span>24</span>
+													<span class="kt-widget__title">Earnings</span>
+													<span class="kt-widget__value"><span>$</span>249,500</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -152,8 +116,8 @@ var x = setInterval(function() {
 													<i class="flaticon-confetti"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">No Of List</span>
-													<span class="kt-widget__value"><span></span>16</span>
+													<span class="kt-widget__title">Expenses</span>
+													<span class="kt-widget__value"><span>$</span>164,700</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -161,8 +125,8 @@ var x = setInterval(function() {
 													<i class="flaticon-pie-chart"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">Active Remainder</span>
-													<span class="kt-widget__value"><span></span>78</span>
+													<span class="kt-widget__title">Net</span>
+													<span class="kt-widget__value"><span>$</span>782,300</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -170,8 +134,8 @@ var x = setInterval(function() {
 													<i class="flaticon-file-2"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">Total Ticket</span>
-													<a href="#" class="kt-widget__value kt-font-brand">10</a>
+													<span class="kt-widget__title">73 Tasks</span>
+													<a href="#" class="kt-widget__value kt-font-brand">View</a>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -179,8 +143,8 @@ var x = setInterval(function() {
 													<i class="flaticon-chat-1"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">Total Notes</span>
-													<a href="#" class="kt-widget__value kt-font-brand">5</a>
+													<span class="kt-widget__title">648 Comments</span>
+													<a href="#" class="kt-widget__value kt-font-brand">View</a>
 												</div>
 											</div>
 										
@@ -188,11 +152,9 @@ var x = setInterval(function() {
 									</div>
 								</div>
 							</div>
-							
 							@endforeach
 							<!--end:: Portlet-->
-							</form>
-							
+						
       <div class="modal fade" id="kt_scrollable_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
@@ -204,11 +166,8 @@ var x = setInterval(function() {
 </div>
 <div class="modal-body">
 <div class="kt-scroll" data-scroll="true">
-<form action="{{ url('/listnote_contact') }}" method="post">
+<form action="{{ url('/listnote_contact_lead') }}" method="post">
 {{ csrf_field() }}
-
-
-
 <div class="form-group">
 <label for="recipient-name" class="form-control-label">Type:</label>
 <input class="form-control" name="created_by" type="hidden" value="{{ Auth::user()->id }}">
@@ -220,6 +179,7 @@ var x = setInterval(function() {
                             @endforeach
                         </select>
 </div>
+
 <div class="form-group">
 <label for="message-text" class="form-control-label">Description:</label>
 <textarea class="form-control" name="description" rows="3" required></textarea>
@@ -249,7 +209,7 @@ var x = setInterval(function() {
 </div>
 <div class="modal-body">
 <div class="kt-scroll" data-scroll="true">
-<form action="{{ url('/remainder_contact') }}" method="post">
+<form action="{{ url('/remainder_contact_lead') }}" method="post">
 {{ csrf_field() }}
 <div class="form-group">
 <label for="recipient-name" class="form-control-label">Type:</label>
@@ -257,7 +217,7 @@ var x = setInterval(function() {
 <input type="hidden" class="form-control" name="contactid" id="contactidremainder" value>
 <select class="form-control" name="typeid" required>
                             <option>Select Type</option>
-                            @foreach($stag2 as $value)
+                            @foreach($stag as $value)
                             <option value="{{ $value->id }}">{{ $value->name }}</option>
                             @endforeach
                         </select>
@@ -268,7 +228,7 @@ var x = setInterval(function() {
 <input type="text" id="kt_datetimepicker_3" class="form-control" name="datetimepicker" required>
 </div>
 <div class="form-group">
-<label for="message-text" class="form-control-label">Description:</label>
+<label for="message-text" class="form-control-label">Remarks:</label>
 <textarea class="form-control" name="description" rows="3" required></textarea>
 </div>
 

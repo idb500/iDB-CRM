@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@include('layouts.header')
+@include('layouts.left_side_bar')
 
 
 @section('content')
@@ -70,3 +71,4 @@
 
 
 @endsection
+@include('layouts.footer')
