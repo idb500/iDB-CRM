@@ -15,10 +15,10 @@ $contactid=$role->id;
 $latestnote1 = \DB::table('list_note')->where(['contact_id'=>$contactid])->orderBy('id', 'DESC')->first();  
 if($latestnote1!=''){
 	$latestnote = \DB::table('list_note')->where(['contact_id'=>$contactid])->orderBy('id', 'DESC')->first();  
-	
+	$latestnote2 = \DB::table('stages')->where([['id','=',$latestnote->sub_type],['category','=',2]])->orderBy('id', 'DESC')->first();   
 } else{
 	$latestnote = \DB::table('list_note')->where(['list_id'=>$role->list_id])->orderBy('id', 'DESC')->first(); 
-
+	$latestnote2 = \DB::table('stages')->where([['id','=',$latestnote->sub_type],['category','=',2]])->orderBy('id', 'DESC')->first();   
 }
 $remainderlatest = \DB::table('contact_remainder')->where([['contact_id','=',$contactid],['datetime' , '>=' ,date('Y-m-d H:i:s')]])->orderBy('datetime', 'ASC')->first(); 
 
@@ -70,12 +70,14 @@ var x = setInterval(function() {
 												<div class="kt-widget__head">
 													<a href="" class="kt-widget__username">
 														{{ $role->registrant_name }}
-													
+														@if($latestnote2!='')	({{ $latestnote2->name }}) @endif
 													</a>
+													<button type="button" data-toggle="modal" data-target="#kt_scrollable_modal_210" id="{{ $role->id }}" class="btn btn-success btn-sm btn-upper view_data1">Lead</button>
+						
 													<div class="kt-widget__action">
 													<a href="{{ url('/contactdetails') }}/{{ $role->id }}"><button type="button" class="btn btn-success btn-sm btn-upper view_data_remainder">Details</button></a>
 													
-														<button type="button" data-toggle="modal"  class="btn btn-success btn-sm btn-upper">Move To Client</button>
+													<a href="{{ url('/transfer_client') }}/{{ $role->id }}"><button type="button" data-toggle="modal"  class="btn btn-success btn-sm btn-upper">Move To Client</button></a>
 													
 													@can('add-remainder')
 														<button type="button" data-toggle="modal" data-target="#kt_scrollable_modal_remainder" id="{{ $role->id }}" class="btn btn-success btn-sm btn-upper view_data_remainder">Add Remainder</button>
@@ -107,8 +109,8 @@ var x = setInterval(function() {
 													<i class="flaticon-piggy-bank"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">Earnings</span>
-													<span class="kt-widget__value"><span>$</span>249,500</span>
+												<span class="kt-widget__title">Total Campaign Note</span>
+													<span class="kt-widget__value"><span></span>24</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -116,8 +118,8 @@ var x = setInterval(function() {
 													<i class="flaticon-confetti"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">Expenses</span>
-													<span class="kt-widget__value"><span>$</span>164,700</span>
+												<span class="kt-widget__title">No Of List</span>
+													<span class="kt-widget__value"><span></span>16</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -125,8 +127,8 @@ var x = setInterval(function() {
 													<i class="flaticon-pie-chart"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">Net</span>
-													<span class="kt-widget__value"><span>$</span>782,300</span>
+												<span class="kt-widget__title">Active Remainder</span>
+													<span class="kt-widget__value"><span></span>78</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -134,8 +136,8 @@ var x = setInterval(function() {
 													<i class="flaticon-file-2"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">73 Tasks</span>
-													<a href="#" class="kt-widget__value kt-font-brand">View</a>
+												<span class="kt-widget__title">Total Ticket</span>
+													<span class="kt-widget__value"><span></span>78</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -143,8 +145,8 @@ var x = setInterval(function() {
 													<i class="flaticon-chat-1"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">648 Comments</span>
-													<a href="#" class="kt-widget__value kt-font-brand">View</a>
+												<span class="kt-widget__title">Total Notes</span>
+													<a href="#" class="kt-widget__value kt-font-brand">10</a>
 												</div>
 											</div>
 										
@@ -243,13 +245,57 @@ var x = setInterval(function() {
 </div>
 </div>
 </div>
+<div class="modal fade" id="kt_scrollable_modal_210" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel2">New Note</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+<div class="kt-scroll" data-scroll="true">
+<form action="{{ url('/listnote_contact_lead') }}" method="post">
+{{ csrf_field() }}
+<div class="form-group">
+<label for="recipient-name" class="form-control-label">Sub Stage:</label>
+<input class="form-control" name="created_by" type="hidden" value="{{ Auth::user()->id }}">
+<input type="hidden" class="form-control" name="contactid" id="contactid1" value>
+<select class="form-control" name="subtypeid" required>
+                            <option>Select Type</option>
+                            @foreach($stag as $value)
+                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                            @endforeach
+                        </select>
+</div>
+
+<div class="form-group">
+<label for="message-text" class="form-control-label">Description:</label>
+<textarea class="form-control" name="description" rows="3" required></textarea>
+</div>
+
+
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
 <script type="text/javascript">
  $(document).ready(function(){  
       $('.view_data').click(function(){  
            var employee_detail = $(this).attr("id");
 		   $("#contactid").val( employee_detail );
 	  });
-
+	  $('.view_data1').click(function(){  
+           var employee_detail1 = $(this).attr("id");
+		   $("#contactid1").val( employee_detail1 );
+	  });
 	  $('.view_data_remainder').click(function(){  
            var employee_detail101 = $(this).attr("id");
 		   $("#contactidremainder").val( employee_detail101 );

@@ -47,14 +47,16 @@ class StageController extends Controller
             'categoryname' => 'required',
             'stagename' => 'required',
             'validity' => 'required',
+            
         ]);
 
         $input = $request->all();
         $categoryname = $input['categoryname']; 
+        $fafaicon = $input['fafaicon']; 
         $stagename = $input['stagename']; 
         $validity = $input['validity']; 
        $created_by = $input['created_by'];       
-        $data = \DB::table('stages')->insert(['category'=>$categoryname,'name'=>$stagename,'validity'=>$validity, 'created_by'=>$created_by,'created_at'=>date('Y-m-d H:i:s') ,'updated_at'=>date('Y-m-d H:i:s')]);
+        $data = \DB::table('stages')->insert(['category'=>$categoryname,'icon'=>$fafaicon,'name'=>$stagename,'validity'=>$validity, 'created_by'=>$created_by,'created_at'=>date('Y-m-d H:i:s') ,'updated_at'=>date('Y-m-d H:i:s')]);
         return redirect()->route('stage.index')
                         ->with('success','stage created successfully');
     }
@@ -75,11 +77,12 @@ class StageController extends Controller
         ]);
 
         $input = $request->all();
+        $fafaicon = $input['icon']; 
         $categoryname = $input['category']; 
         $stagename = $input['name']; 
         $validity = $input['validity']; 
        $created_by = $input['created_by']; 
-       $data = \DB::table('stages')->where('id', $id)->update(['category'=>$categoryname,'name'=>$stagename,'validity'=>$validity, 'created_by'=>$created_by,'updated_at'=>date('Y-m-d H:i:s')]);
+       $data = \DB::table('stages')->where('id', $id)->update(['category'=>$categoryname,'icon'=>$fafaicon,'name'=>$stagename,'validity'=>$validity, 'created_by'=>$created_by,'updated_at'=>date('Y-m-d H:i:s')]);
      
         return redirect()->route('stage.index')
                         ->with('success','Stage updated successfully');

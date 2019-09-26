@@ -1,52 +1,25 @@
 @include('layouts.header')
-@include('layouts.left_side_bar_bigdata')
+@include('layouts.left_side_bar')
 @section('content')
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!--begin:: Portlet-->
-
-<div class="kt-portlet">
-<form action="{{ url('/store') }}" method="post" class="kt-form kt-form--label-right">
-    <div class="kt-portlet__body">
-        <div class="form-group row">
-			
-           
-                    @can('contact-assigned')
-					{{ csrf_field() }}
-					<div class="col-lg-2">
-					<input class="form-control" name="created_by" type="hidden" value="{{ Auth::user()->id }}">
-					<label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
-								<input type="checkbox" id="check_all"> Select All Contact
-								<span></span>
-				
-                    </div>
-
-                    <div class="col-lg-2">
-
-                        <select class="form-control kt-font-brand" style="width: 180px" name="assignedto">
-                            <option>Select Name</option>
-                            @foreach($users as $value)
-                            <option value="{{ $value->id }}">{{ $value->name }} - {{ $value->rname }}</option>
-                            @endforeach
-                        </select>
-					</div>
-					
-					<div class="col-lg-2">
-					<button type="submit" class="btn btn-primary">Submit</button>
-                       </div>
-                    @endcan
-
-
-</div>  
-    </div>
-
-</div>
-
+<span><b>Total List : </b>{{ $contactlistcount }}</span>
 <?php $i=0; ?>
 @foreach ($contact as $key => $role)
+
 <?php
+
 $i++;
 $contactid=$role->id;
-$latestnote = \DB::table('list_note')->where(['list_id'=>$role->list_id])->orderBy('id', 'DESC')->first();   
+
+$latestnote1 = \DB::table('list_note')->where(['contact_id'=>$contactid])->orderBy('id', 'DESC')->first();  
+if($latestnote1!=''){
+	$latestnote = \DB::table('list_note')->where(['contact_id'=>$contactid])->orderBy('id', 'DESC')->first();  
+	
+} else{
+	$latestnote = \DB::table('list_note')->where(['list_id'=>$role->list_id])->orderBy('id', 'DESC')->first(); 
+
+}
 $remainderlatest = \DB::table('contact_remainder')->where([['contact_id','=',$contactid],['datetime' , '>=' ,date('Y-m-d H:i:s')]])->orderBy('datetime', 'ASC')->first(); 
 
 ?>
@@ -81,55 +54,48 @@ var x = setInterval(function() {
 }, 1000);
 </script>
 <div class="kt-portlet">
-<label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
-<input type="checkbox" class="checkbox" name="checkid[]" data-id="{{$role->id}}" value="{{ $role->id }}">
-			<span></span>
-</label>
-   
-    <div class="kt-portlet__body">
 
-        <div class="kt-widget kt-widget--user-profile-3">
-            <div class="kt-widget__top">
-            <div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden-" style="display: initial;background:#b3e5fc;">
+							<div class="kt-portlet__body">
+								
+									<div class="kt-widget kt-widget--user-profile-3">
+										<div class="kt-widget__top">
+										<div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden-" style="display: initial;background:#b3e5fc;">
 		
 		<img alt="Logo" src="{{ asset('assets/media/icons/countdowntimer.png') }}" class="timerImg"><br>
 		
 		@if($remainderlatest!='')	<p class="timertext" id="demo{{$i}}"></p> @endif
 		
 		</div>
-                <div class="kt-widget__content">
-                    <div class="kt-widget__head">
-                        <a href="" class="kt-widget__username">
-                            {{ $role->domain_name }}
-                          
-                        </a>
-                        <div class="kt-widget__action">
-                        <a href="{{ url('/contactdetails') }}/{{ $role->id }}"><button type="button" class="btn btn-success btn-sm btn-upper view_data_remainder">Details</button></a>
-																		
-													@can('add-remainder')
-														<button type="button" data-toggle="modal" data-target="#kt_scrollable_modal_remainder" id="{{ $role->id }}" class="btn btn-success btn-sm btn-upper view_data_remainder">Add Remainder</button>
-													@endcan
-                            @can('list-note')
-														<button type="button" data-toggle="modal" data-target="#kt_scrollable_modal_1" id="{{ $role->id }}" class="btn btn-brand btn-sm btn-upper view_data">Add Note</button>
-													@endcan
-                        </div>
-                    </div>
-                    <div class="kt-widget__subhead">
-                    <a href="#"><i class="flaticon2-new-email"></i> {{ $role->registrant_email }}</a>
+											<div class="kt-widget__content">
+												<div class="kt-widget__head">
+													<a href="" class="kt-widget__username">
+														{{ $role->registrant_name }}
+													
+													</a>
+													<div class="kt-widget__action">
+													<a href="{{ url('/contactdetails') }}/{{ $role->id }}"><button type="button" class="btn btn-success btn-sm btn-upper view_data_remainder">Details</button></a>
+													
+													
+													
+													</div>
+												</div>
+												<div class="kt-widget__subhead">
+												<a href="#"><i class="flaticon2-new-email"></i> {{ $role->registrant_email }}</a>
                         <a href="#"><i class="flaticon2-calendar-3"></i>{{ $role->	domain_registrar_name }} </a>
                         <a href="#"><i class="flaticon2-placeholder"></i>{{$role->registrant_phone}}</a>
 						<a href="#"><i class="flaticon2-placeholder"></i>{{$role->registrant_city}}</a>
 						<a href="#"><i class="flaticon2-placeholder"></i>{{$role->registrant_company}}</a>
-                    </div>
-                    <div class="kt-widget__info">
-                        <div class="kt-widget__desc">
-                        <b>	Note: </b>  @if($latestnote!='') {{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }} {{ $latestnote->description }}  @endif
-                        </div>
-                       
-                    </div>
-                </div>
-            </div>
-            <div class="kt-widget__bottom">
+												</div>
+												<div class="kt-widget__info">
+													<div class="kt-widget__desc">
+													<b>Last Note :</b> @if($latestnote!='')  {{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }} {{ $latestnote->description }} @endif
+													
+													</div>
+												
+												</div>
+											</div>
+										</div>
+										<div class="kt-widget__bottom">
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-piggy-bank"></i>
@@ -177,15 +143,13 @@ var x = setInterval(function() {
 											</div>
 										
 										</div>
-        </div>
-    </div>
-</div>
-@endforeach
-<!--end:: Portlet-->
-
-</form>
-
-<div class="modal fade" id="kt_scrollable_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									</div>
+								</div>
+							</div>
+							@endforeach
+							<!--end:: Portlet-->
+						
+      <div class="modal fade" id="kt_scrollable_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
@@ -196,7 +160,7 @@ var x = setInterval(function() {
 </div>
 <div class="modal-body">
 <div class="kt-scroll" data-scroll="true">
-<form action="{{ url('/listnote2') }}" method="post">
+<form action="{{ url('/listnote_contact_lead') }}" method="post">
 {{ csrf_field() }}
 <div class="form-group">
 <label for="recipient-name" class="form-control-label">Type:</label>
@@ -239,7 +203,7 @@ var x = setInterval(function() {
 </div>
 <div class="modal-body">
 <div class="kt-scroll" data-scroll="true">
-<form action="{{ url('/remaindercont') }}" method="post">
+<form action="{{ url('/remainder_contact_lead') }}" method="post">
 {{ csrf_field() }}
 <div class="form-group">
 <label for="recipient-name" class="form-control-label">Type:</label>
@@ -247,7 +211,7 @@ var x = setInterval(function() {
 <input type="hidden" class="form-control" name="contactid" id="contactidremainder" value>
 <select class="form-control" name="typeid" required>
                             <option>Select Type</option>
-                            @foreach($stag2 as $value)
+                            @foreach($stag as $value)
                             <option value="{{ $value->id }}">{{ $value->name }}</option>
                             @endforeach
                         </select>
@@ -258,7 +222,7 @@ var x = setInterval(function() {
 <input type="text" id="kt_datetimepicker_3" class="form-control" name="datetimepicker" required>
 </div>
 <div class="form-group">
-<label for="message-text" class="form-control-label">Description:</label>
+<label for="message-text" class="form-control-label">Remarks:</label>
 <textarea class="form-control" name="description" rows="3" required></textarea>
 </div>
 
@@ -279,8 +243,8 @@ var x = setInterval(function() {
            var employee_detail = $(this).attr("id");
 		   $("#contactid").val( employee_detail );
 	  });
- 
- $('.view_data_remainder').click(function(){  
+
+	  $('.view_data_remainder').click(function(){  
            var employee_detail101 = $(this).attr("id");
 		   $("#contactidremainder").val( employee_detail101 );
 	  });
@@ -289,16 +253,15 @@ var x = setInterval(function() {
                     //    format: "dd/mm/yyyy hh:ii"
         });
 
-    $('#check_all').on('click', function(e) {
+	  $('#check_all').on('click', function(e) {
         if ($(this).is(':checked', true)) {
             $(".checkbox").prop('checked', true);
         } else {
             $(".checkbox").prop('checked', false);
         }
     });
-});
-</script>
-
-
+ }); 
+</script>       
+						
 @endsection
-@include('layouts.footer')
+@extends('layouts.footer')

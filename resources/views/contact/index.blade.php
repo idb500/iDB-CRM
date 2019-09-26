@@ -62,7 +62,7 @@ $latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('i
 									
 
 													<div class="kt-widget__desc">
-													@if($latestnote!='') {{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }} {{ $latestnote->description }}  @endif
+												<b>	Note: </b>@if($latestnote!='') {{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }} {{ $latestnote->description }}  @endif
 
 													</div>
 													

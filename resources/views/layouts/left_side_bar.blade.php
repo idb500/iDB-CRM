@@ -92,6 +92,8 @@
                                     @can('user-list')
                                     <li class="kt-menu__item " aria-haspopup="true" data-ktmenu-link-redirect="1"><a href="{{ route('users.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Users</span></a></li>
                                     @endcan
+                                    <li class="kt-menu__item " aria-haspopup="true" data-ktmenu-link-redirect="1"><a href="{{ url('tickets') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Tickets</span></a></li>
+                                  
                                         </ul>
                             </div>
                         </li>
@@ -107,6 +109,9 @@
                                     <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('stage.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Stages</span></a></li>
                                     @endcan
                                     <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('note_type.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Note Type</span></a></li>
+                                   <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('tickets/settings/status') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Ticket Status</span></a></li>
+                                   <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('tickets/settings/priority') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Ticket Priority</span></a></li>
+                                   <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('tickets/settings/category') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Ticket Category</span></a></li>
                                   
                                     </ul>
                             </div>
@@ -146,6 +151,9 @@
                             <li class="kt-menu__item  " aria-haspopup="true"><a href="{{ url('/kb') }}" class="kt-menu__link"><span class="kt-menu__link-text">KB</span></a>
                                 
                             </li>
+                            <li class="kt-menu__item  " aria-haspopup="true"><a href="{{ url('/clientlist') }}" class="kt-menu__link"><span class="kt-menu__link-text">Client</span></a>
+                                
+                                </li>
                         </ul>
                     </div>
                 </div>

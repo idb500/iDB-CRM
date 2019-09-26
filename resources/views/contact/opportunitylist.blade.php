@@ -145,8 +145,8 @@ var x = setInterval(function() {
 													<i class="flaticon-piggy-bank"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">Earnings</span>
-													<span class="kt-widget__value"><span>$</span>249,500</span>
+												<span class="kt-widget__title">Total Campaign Note</span>
+													<span class="kt-widget__value"><span></span>24</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -154,8 +154,8 @@ var x = setInterval(function() {
 													<i class="flaticon-confetti"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">Expenses</span>
-													<span class="kt-widget__value"><span>$</span>164,700</span>
+												<span class="kt-widget__title">No Of List</span>
+													<span class="kt-widget__value"><span></span>16</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -163,8 +163,8 @@ var x = setInterval(function() {
 													<i class="flaticon-pie-chart"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">Net</span>
-													<span class="kt-widget__value"><span>$</span>782,300</span>
+												<span class="kt-widget__title">Active Remainder</span>
+													<span class="kt-widget__value"><span></span>78</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -172,8 +172,8 @@ var x = setInterval(function() {
 													<i class="flaticon-file-2"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">73 Tasks</span>
-													<a href="#" class="kt-widget__value kt-font-brand">View</a>
+												<span class="kt-widget__title">Total Ticket</span>
+													<span class="kt-widget__value"><span></span>78</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -181,8 +181,8 @@ var x = setInterval(function() {
 													<i class="flaticon-chat-1"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">648 Comments</span>
-													<a href="#" class="kt-widget__value kt-font-brand">View</a>
+												<span class="kt-widget__title">Total Notes</span>
+													<a href="#" class="kt-widget__value kt-font-brand">10</a>
 												</div>
 											</div>
 										

@@ -1,6 +1,5 @@
-@extends('layouts.app')
-
-
+@include('layouts.header')
+@include('layouts.left_side_bar')
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
@@ -81,3 +80,5 @@
 
 
 @endsection
+
+@include('layouts.footer')

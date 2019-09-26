@@ -50,9 +50,11 @@ Route::get('/kb', 'CategoryController@kb');
     Route::get('leadlist', ['uses'=>'ContactController@leadlist']);
     Route::get('transfer_opportunity/{id}', ['uses'=>'ContactController@transfer_opportunity']);
     
+    Route::get('clientlist', ['uses'=>'ContactController@clientlist']);
     Route::post('multiple_transfer_opportunity', ['uses'=>'ContactController@multiple_transfer_opportunity']);
     Route::get('transfer_lead/{id}', ['uses'=>'ContactController@transfer_lead']);
     
+    Route::get('transfer_client/{id}', ['uses'=>'ContactController@transfer_client']);
     Route::post('multiple_transfer_lead', ['uses'=>'ContactController@multiple_transfer_lead']);
     
     Route::post('remaindercont', ['uses'=>'ContactController@remaindercont']);

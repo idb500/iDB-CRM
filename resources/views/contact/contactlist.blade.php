@@ -167,10 +167,19 @@ var x = setInterval(function() {
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
-													<i class="flaticon-file-2"></i>
+													<i class="flaticon-pie-chart"></i>
 												</div>
 												<div class="kt-widget__details">
 													<span class="kt-widget__title">Total Ticket</span>
+													<span class="kt-widget__value"><span></span>78</span>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-file-2"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Total Notes</span>
 													<a href="#" class="kt-widget__value kt-font-brand">10</a>
 												</div>
 											</div>

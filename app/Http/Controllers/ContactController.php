@@ -106,11 +106,10 @@ class ContactController extends Controller
         $input = $request->all();
         $contactid = $input['contactid']; 
        $created_by = $input['created_by'];     
-       $subject = $input['subject']; 
+       $typeid = $input['typeid']; 
        $description = $input['description']; 
-        \DB::table('list_note')->insert(['list_id'=>$contactid, 'subject'=>$subject,'description'=>$description,'created_by'=>$created_by,'created_at'=>date('Y-m-d H:i:s')]);
-        return redirect()->route('contact.index')
-                        ->with('success','Note Added successfully');
+        \DB::table('list_note')->insert(['list_id'=>$contactid, 'stage'=>0,'type_id'=>$typeid,'description'=>$description,'created_by'=>$created_by,'created_at'=>date('Y-m-d H:i:s')]);
+        return Redirect::back();
 
     }
     public function listnote2(Request $request)
@@ -162,9 +161,15 @@ class ContactController extends Controller
         $input = $request->all();
         $contactid = $input['contactid']; 
        $created_by = $input['created_by'];     
-       $typeid = $input['typeid']; 
+       $typeid=""; 
+       $typeid  = isset($input['typeid']) ? $input['typeid'] : '';
        $description = $input['description']; 
+       if($typeid!=''){
         \DB::table('list_note')->insert(['contact_id'=>$contactid,'stage'=>3,'type_id'=>$typeid,'description'=>$description,'created_by'=>$created_by,'created_at'=>date('Y-m-d H:i:s')]);
+       } else {
+        $subtypeid = $input['subtypeid']; 
+        \DB::table('list_note')->insert(['contact_id'=>$contactid,'stage'=>3,'sub_type'=>$subtypeid,'description'=>$description,'created_by'=>$created_by,'created_at'=>date('Y-m-d H:i:s')]);
+       }
         return Redirect::back();
     }
     public function remainder(Request $request)
@@ -182,7 +187,7 @@ class ContactController extends Controller
     public function opportunitylist()
     {
     $id2= Auth::user()->id;
-    $stag = \DB::table('stages')->get(); 
+    $stag = \DB::table('stages')->where('category','=',1)->get(); 
     $stag2 = \DB::table('note_type')->get(); 
    $stages = \DB::table('users')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '=', 'Super Admin'],['users.id', '=', $id2]])->count();   
     if($stages=='1'){
@@ -197,7 +202,7 @@ class ContactController extends Controller
     public function leadlist()
     {
     $id2= Auth::user()->id;
-    $stag = \DB::table('stages')->get(); 
+    $stag = \DB::table('stages')->where('category','=',2)->get(); 
     $stag2 = \DB::table('note_type')->get(); 
    $stages = \DB::table('users')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '=', 'Super Admin'],['users.id', '=', $id2]])->count();   
     if($stages=='1'){
@@ -258,6 +263,15 @@ class ContactController extends Controller
        $checkid = $id; 
  
         $data2 = \DB::table('contact')->where('id', $checkid)->update(['stage'=>2]);
+       
+        return Redirect::back();
+
+    }
+    public function transfer_client($id)
+    {      
+       $checkid = $id; 
+ 
+        $data2 = \DB::table('contact')->where('id', $checkid)->update(['stage'=>3]);
        
         return Redirect::back();
 
@@ -327,5 +341,20 @@ class ContactController extends Controller
 
        
     }
-
+    public function clientlist()
+    {
+    $id2= Auth::user()->id;
+    $stag = \DB::table('stages')->get(); 
+    $stag2 = \DB::table('note_type')->get(); 
+   $stages = \DB::table('users')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '=', 'Super Admin'],['users.id', '=', $id2]])->count();   
+    if($stages=='1'){
+    $contact = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',3]])->get(); 
+    $contactlistcount = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',3]])->count();    
+     }else{
+        $contact = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id' , '=' ,$id2],['contact.stage','=',3]])->get();
+        $contactlistcount = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id' , '=' ,$id2],['contact.stage','=',3]])->count();
+    
+    }
+            return view('contact.clientlist',compact('contact','stag','stag2','contactlistcount'));
+    }
 }

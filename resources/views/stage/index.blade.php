@@ -42,6 +42,7 @@
 					<tr>
 						<th>ID</th>
 						<th>Sub Stage Name </th>
+						<th>Icon </th>
 						<th>Validity</th>
 						<th>Stage Name </th>
 						<th>Cteated By</th>
@@ -55,6 +56,7 @@
 					<tr>
 						<td>{{ ++$i }}</td>
 						<td>{{ $role->name }}</td>
+						<td><i class="{{ $role->icon }}" aria-hidden="true"></i></td>
 						<td>{{ $role->validity }}</td>
 						<td>{{ $role->cname }}</td>
 						<td>{{ $role->uname }}</td>

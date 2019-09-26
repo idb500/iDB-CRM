@@ -37,7 +37,7 @@ foreach($newArray as $array) {
  foreach($singleArray as $key=>$value) {
      $chanl[] = $value->created_at;
  }
- if(!empty($singleArray)) {  array_multisort($chanl,SORT_ASC,SORT_STRING,$singleArray);   }
+ if(!empty($singleArray)) {  array_multisort($chanl,SORT_DESC,SORT_STRING,$singleArray);   }
 
   $latestnote12 = \DB::table('list_note')->where([['list_id','=',$role->list_id],['stage','=',1]])->orderBy('id', 'DESC')->get(); 
 $latestnote22  = \DB::table('list_note')->where([['contact_id','=',$contactid],['stage','=',1]])->orderBy('id', 'DESC')->get(); 
@@ -56,7 +56,7 @@ foreach($newArray2 as $array2) {
  foreach($singleArray2 as $key2=>$value2) {
      $chanl2[] = $value2->created_at;
  }
-  if(!empty($singleArray2)) { array_multisort($chanl2,SORT_ASC,SORT_STRING,$singleArray2); } 
+  if(!empty($singleArray2)) { array_multisort($chanl2,SORT_DESC,SORT_STRING,$singleArray2); } 
   $latestnote13 = \DB::table('list_note')->where([['list_id','=',$role->list_id],['stage','=',2]])->orderBy('id', 'DESC')->get(); 
 $latestnote23 = \DB::table('list_note')->where([['contact_id','=',$contactid],['stage','=',2]])->orderBy('id', 'DESC')->get(); 
 $latestnote33 = \DB::table('contact_remainder')->where([['contact_id','=',$contactid],['stage','=',2]])->orderBy('id', 'DESC')->get(); 
@@ -74,7 +74,7 @@ foreach($newArray3 as $array3) {
  foreach($singleArray3 as $key3=>$value3) {
      $chanl3[] = $value3->created_at;
  }
- if(!empty($singleArray3)) { array_multisort($chanl3,SORT_ASC,SORT_STRING,$singleArray3);  }
+ if(!empty($singleArray3)) { array_multisort($chanl3,SORT_DESC,SORT_STRING,$singleArray3);  }
   $latestnote14 = \DB::table('list_note')->where([['list_id','=',$role->list_id],['stage','=',3]])->orderBy('id', 'DESC')->get(); 
 $latestnote24 = \DB::table('list_note')->where([['contact_id','=',$contactid],['stage','=',3]])->orderBy('id', 'DESC')->get(); 
 $latestnote34 = \DB::table('contact_remainder')->where([['contact_id','=',$contactid],['stage','=',3]])->orderBy('id', 'DESC')->get(); 
@@ -92,7 +92,7 @@ foreach($newArray4 as $array4) {
  foreach($singleArray4 as $key4=>$value4) {
      $chanl4[] = $value4->created_at;
  }
- if(!empty($singleArray4)) {  array_multisort($chanl4,SORT_ASC,SORT_STRING,$singleArray4); }
+ if(!empty($singleArray4)) {  array_multisort($chanl4,SORT_DESC,SORT_STRING,$singleArray4); }
 // echo "<pre>";
 // print_r($singleArray);
 // echo "</pre>";
@@ -172,10 +172,21 @@ var x = setInterval(function() {
 													<a class="nav-link disabled" data-toggle="tab" href="#kt_tabs_1_5">Client</a>
 												</li>
 												@endif
+												@if($stgchk==3)
+												<li class="nav-item">
+													<a class="nav-link" data-toggle="tab" href="#kt_tabs_1_3">Opportunity</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" data-toggle="tab" href="#kt_tabs_1_4">Lead</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" data-toggle="tab" href="#kt_tabs_1_5">Client</a>
+												</li>
+												@endif
 											</ul>
 											<div class="tab-content">
 												<div class="tab-pane active" id="kt_tabs_1_1" role="tabpanel">
-                                                tab 1
+                                                <!-- tab 1 -->
                                                 <div class="kt-portlet">
 								<div class="kt-portlet__body">
 									<div class="kt-widget kt-widget--user-profile-3">
@@ -288,6 +299,11 @@ var x = setInterval(function() {
                                                             <i class="{{ $iconclass->icon }}"></i>
                                                            
 															@endif
+															@if(!empty($rolgfe->sub_type))
+                                                            <?php  $iconclass = \DB::table('stages')->where(['id'=>$rolgfe->sub_type])->first();  ?>
+                                                            <i class="{{ $iconclass->icon }}"></i> 
+                                                          
+															@endif
 															</span>
 														</div>
 														<div class="kt-notes__content">
@@ -389,7 +405,7 @@ var x = setInterval(function() {
 							</div>
                                                 </div>
                                                 <div class="tab-pane" id="kt_tabs_1_2" role="tabpanel">
-													tab 2
+													<!-- tab 2 -->
                                                     <div class="kt-portlet">
 								<div class="kt-portlet__body">
 									<div class="kt-widget kt-widget--user-profile-3">
@@ -502,6 +518,11 @@ var x = setInterval(function() {
                                                             <i class="{{ $iconclass->icon }}"></i>
                                                            
 															@endif
+															@if(!empty($rolgfe->sub_type))
+                                                            <?php  $iconclass = \DB::table('stages')->where(['id'=>$rolgfe->sub_type])->first();  ?>
+                                                            <i class="{{ $iconclass->icon }}"></i> 
+                                                          
+															@endif
 															</span>
 														</div>
 														<div class="kt-notes__content">
@@ -603,7 +624,7 @@ var x = setInterval(function() {
 							</div>
                                                 </div>
                                                 <div class="tab-pane" id="kt_tabs_1_3" role="tabpanel">
-                                                tab3
+                                                <!-- tab 3 -->
                                                 <div class="kt-portlet">
 								<div class="kt-portlet__body">
 									<div class="kt-widget kt-widget--user-profile-3">
@@ -716,6 +737,11 @@ var x = setInterval(function() {
                                                             <i class="{{ $iconclass->icon }}"></i>
                                                            
 															@endif
+															@if(!empty($rolgfe->sub_type))
+                                                            <?php  $iconclass = \DB::table('stages')->where(['id'=>$rolgfe->sub_type])->first();  ?>
+                                                            <i class="{{ $iconclass->icon }}"></i> 
+                                                          
+															@endif
 															</span>
 														</div>
 														<div class="kt-notes__content">
@@ -817,7 +843,7 @@ var x = setInterval(function() {
 							</div>
                                                 </div>
                                                 <div class="tab-pane" id="kt_tabs_1_4" role="tabpanel">
-													tab 4
+													<!-- tab 4 -->
                                                     <div class="kt-portlet">
 								<div class="kt-portlet__body">
 									<div class="kt-widget kt-widget--user-profile-3">
@@ -930,6 +956,11 @@ var x = setInterval(function() {
                                                             <i class="{{ $iconclass->icon }}"></i>
                                                            
 															@endif
+															@if(!empty($rolgfe->sub_type))
+                                                            <?php  $iconclass = \DB::table('stages')->where(['id'=>$rolgfe->sub_type])->first();  ?>
+                                                            <i class="{{ $iconclass->icon }}"></i> 
+                                                          
+															@endif
 															</span>
 														</div>
 														<div class="kt-notes__content">
@@ -1031,7 +1062,7 @@ var x = setInterval(function() {
 							</div>
 												</div>
                                                 <div class="tab-pane" id="kt_tabs_1_5" role="tabpanel">
-                                                tab 5
+                                                <!-- tab 5 -->
                                                 <div class="kt-portlet">
 								<div class="kt-portlet__body">
 									<div class="kt-widget kt-widget--user-profile-3">
@@ -1122,118 +1153,11 @@ var x = setInterval(function() {
 												</div>
 											</div>
 											<div class="row">
-								<div class="col-lg-12">
-
-									<!--Begin::Portlet-->
-                                    <div class="kt-portlet" style="margin-top:3%;">
-                                    <div class="col-lg-12" style="padding: 10px;border-bottom: 1px solid #dee2e6;">Contact</div>
-										<div class="kt-portlet__body">
-											<div class="kt-notes">
-												<div class="kt-notes__items">
-                                                @foreach ($singleArray as $rolgfe)
-													<div class="kt-notes__item">
-														<div class="kt-notes__media">
-															<span class="kt-notes__icon">
-                                                            @if(!empty($rolgfe->type_id))
-                                                            <?php  $iconclass = \DB::table('note_type')->where(['id'=>$rolgfe->type_id])->first();  ?>
-                                                            <i class="{{ $iconclass->icon }}"></i> 
-                                                          
-															@endif
-                                                            @if(!empty($rolgfe->type))
-                                                          <?php  $iconclass = \DB::table('note_type')->where(['id'=>$rolgfe->type])->first();  ?>
-                                                            <i class="{{ $iconclass->icon }}"></i>
-                                                           
-															@endif
-															</span>
-														</div>
-														<div class="kt-notes__content">
-															<div class="kt-notes__section">
-																<div class="kt-notes__info">
-																	<a href="#" class="kt-notes__title">
-                                                                    @if(!empty($rolgfe->created_by))
-                                                          <?php  $createdbyname = \DB::table('users')->where(['id'=>$rolgfe->created_by])->first();  ?>
-                                                           {{ $createdbyname->name }}
-                                                           
-															@endif
-																	</a>
-																	<span class="kt-notes__desc">
-                                                                    {{ date('d M, Y h:i a',strtotime($rolgfe->created_at)) }}
-																	</span>
-																
-																</div>
-															</div>
-															<span class="kt-notes__body">
-                                                           
-                                                        @if(!empty($rolgfe->description)) {{ $rolgfe->description }} @endif
-                                                        @if(!empty($rolgfe->remarks)) {{ $rolgfe->remarks }} @endif
-                                                        @if(!empty($rolgfe->datetime)) ( {{ date('d M, Y h:i a',strtotime($rolgfe->datetime)) }} ) @endif
-															</span>
-														</div>
-													</div>
-											
-                            @endforeach
+								
 												</div>
 											</div>
                                         </div>
-                                        <div class="col-lg-12" style="padding: 10px;border-bottom: 1px solid #dee2e6;">Ticketing System</div>
-                                        <div class="kt-portlet__body">
-											<div class="kt-notes">
-												<div class="kt-notes__items">
-													<div class="kt-notes__item">
-														<div class="kt-notes__media">
-															<span class="kt-notes__icon">
-																<!-- <i class="flaticon2-shield kt-font-brand"></i> -->
-															</span>
-														</div>
-														<div class="kt-notes__content">
-															<div class="kt-notes__section">
-																<div class="kt-notes__info">
-																	<a href="#" class="kt-notes__title">
-																		who did it (name)
-																	</a>
-																	<span class="kt-notes__desc">
-																		whem (date and time)
-																	</span>
-																	<span class="kt-badge kt-badge--brand kt-badge--inline">Status</span>
-																</div>
-															</div>
-															<span class="kt-notes__body">
-																message like:<br>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.
-															</span>
-                                                        </div><br>
-                                                        <div class="kt-mycart__button">
-													<button type="button" class="btn btn-success btn-sm" style=" ">Reply</button>
-												</div>
-													</div>
-													<div class="kt-notes__item">
-														<div class="kt-notes__media">
-															<span class="kt-notes__icon">
-																<!-- <i class="flaticon2-line-chart kt-font-success"></i> -->
-															</span>
-														</div>
-														<div class="kt-notes__content">
-															<div class="kt-notes__section">
-																<div class="kt-notes__info">
-																	<a href="#" class="kt-notes__title">
-																		who did it (name)
-																	</a>
-																	<span class="kt-notes__desc">
-																		whem (date and time)
-																	</span>
-																	<span class="kt-badge kt-badge--brand kt-badge--inline">Status</span>
-																</div>
-															</div>
-															<span class="kt-notes__body">
-																message like:<br>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.
-															</span>
-                                                        </div><br>
-                                                        <div class="kt-mycart__button">
-													<button type="button" class="btn btn-success btn-sm" style=" ">Reply</button>
-												</div>
-													</div>
-												</div>
-											</div>
-                                        </div>
+                                      
 									</div>
 
 									<!--End::Portlet-->

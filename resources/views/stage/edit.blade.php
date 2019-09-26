@@ -56,6 +56,15 @@
     <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6">
         <div class="form-group">
+            <strong>Fa Fa Icon:</strong>
+            
+            {!! Form::text('icon', null, array('placeholder' => 'Fa Fa Icon','class' => 'form-control')) !!}
+        </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6">
+        <div class="form-group">
             <strong>Validity:</strong>
             {!! Form::text('validity', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
         </div>

@@ -1,5 +1,5 @@
-@extends('layouts.app')
-
+@include('layouts.header')
+@include('layouts.left_side_bar')
 <script src="http://code.jquery.com/jquery-1.12.3.js"></script>
 @section('content')
 
@@ -80,3 +80,4 @@
     });
 </script>
 @endsection
+@include('layouts.footer')
