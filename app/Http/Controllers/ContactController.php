@@ -11,6 +11,8 @@ use Spatie\Permission\Models\Role;
 use Redirect,Response,DB,Config;
 use Datatables;
 use Hash;
+use Illuminate\Support\Facades\Crypt;
+
 class ContactController extends Controller
 {
      /**
@@ -52,6 +54,8 @@ class ContactController extends Controller
     // return view('contact.index');
     $id2= Auth::user()->id;
     $stag2 = \DB::table('note_type')->get(); 
+    $addreplyform = \DB::table('bid_date_replytype')->get(); 
+    $stage = \DB::table('bigdata_stage')->get(); 
     $users = \DB::table('users')->select('users.*','roles.name as rname')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '!=', 'Super Admin'],['roles.name', '!=', 'Marketing Head']])->get(); 
     $stages = \DB::table('users')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '=', 'Super Admin'],['users.id', '=', $id2]])->count();   
   
@@ -60,7 +64,7 @@ class ContactController extends Controller
      }else{
         $contact = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.list_id' , '=' , $listid],['contact.assigned_id' , '=' ,0]])->get();
      }
-        return view('contact.listdata',compact('contact','users','stag2'));
+        return view('contact.listdata',compact('contact','users','stag2','listid','addreplyform','stage'));
     }
 
     
@@ -78,8 +82,7 @@ class ContactController extends Controller
      
         $data = \DB::table('contact_assign')->insert(['contact_id'=>$contactid, 'assign_to'=>$assignedto,'assign_from'=>$created_by,'created_at'=>date('Y-m-d H:i:s') ]);
        }
-        return redirect()->route('contact.index')
-                        ->with('success','List Assigned successfully');
+       return Redirect::back();
 
     }
     public function contactlist()
@@ -356,5 +359,94 @@ class ContactController extends Controller
     
     }
             return view('contact.clientlist',compact('contact','stag','stag2','contactlistcount'));
+    }
+
+    public function createlist()
+    {
+        $users = \DB::table('users')->select('users.*','roles.name as rname')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '!=', 'Super Admin'],['roles.name', '=', 'Marketing Head']])->get(); 
+        return view('contact.create_list',compact('users'));
+    }
+    public function listcreatestore(Request $request)
+    {
+      
+        $input = $request->all();
+        $listname = $input['listname']; 
+        $fileter = $input['fileter']; 
+        $assignedto = $input['assignedto']; 
+       $created_by = $input['created_by'];  
+        $file = $request->file('file');
+        $filename = date('YmdHis').$file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+        $tempPath = $file->getRealPath();
+        $fileSize = $file->getSize();
+        $mimeType = $file->getMimeType();
+        $valid_extension = array("csv");
+       
+        //\DB::table('log')->insert(['phone'=>$phone, 'subject'=>'Collection Master add file', 'message'=> $message, 'source'=> 'Customer Portal' ,  'add_date'=>date('Y-m-d H:i:s')]);
+        $lastInsertedID= \DB::table('list')->insertGetId(['list_name'=>$listname,'filter_condition'=>$fileter, 'assign_marketing_head'=>$assignedto,'created_by'=>$created_by,'created_date'=>date('Y-m-d H:i:s')]);
+        if(in_array(strtolower($extension),$valid_extension)){
+        
+        $location = 'uploads';
+        $file->move($location,$filename);
+        $filepath = base_path($location."/".$filename);
+        $file = fopen($filepath,"r");
+        $importData_arr = array();
+        $i = 0;
+        while (($filedata = fgetcsv($file, 1000, ",")) !== FALSE) {
+        $num = count($filedata );
+        if($i == 0){
+        $i++;
+        continue;
+        }
+        for ($c=0; $c < $num; $c++) {
+        $importData_arr[$i][] = $filedata [$c];
+        }
+        $i++;
+        }
+        fclose($file);
+        foreach($importData_arr as $importData){
+     
+        \DB::table('contact')->insert(['list_id'=>$lastInsertedID, 'domain_name'=>$importData[1], 'query_time'=> date('Y-m-d H:i:s',strtotime($importData[2])),
+         'create_date'=> date('Y-m-d',strtotime($importData[3])),
+        'update_date'=>date('Y-m-d',strtotime($importData[4])),'expiry_date'=>date('Y-m-d',strtotime($importData[5])),'domain_registrar_id'=>$importData[6],
+        'domain_registrar_name'=>$importData[7], 
+        'domain_registrar_whois'=>$importData[8], 'domain_registrar_url'=>$importData[9], 'registrant_name'=>$importData[10], 'registrant_company' =>$importData[11],
+        'registrant_address'=>$importData[12], 'registrant_city'=>$importData[13], 'registrant_state'=>$importData[14], 'registrant_zip' =>$importData[15],
+        'registrant_country'=>$importData[16], 'registrant_email'=>$importData[17], 'registrant_phone'=>$importData[18], 'registrant_fax' =>$importData[19],
+        'created_by'=>$created_by, 'created_date'=>date('Y-m-d H:i:s'), 'stage'=>0]);
+        
+        }
+        
+        
+        }
+        return Redirect::back();
+    }
+    public function nooflist($listid)
+    {
+        $dataemail = Crypt::decrypt($listid);
+        $stages = DB::table('contact')->select('list.*')->join("list", "list.id", "=", "contact.list_id")->where(['contact.registrant_email'=>$dataemail])->get();
+        return view('contact.nooflist',compact('stages'));
+       
+    }
+    public function addreply_form(Request $request)
+    {
+        $input = $request->all();
+        $contactid = $input['contactid']; 
+       $created_by = $input['created_by'];     
+       $typeid = $input['typeid']; 
+       $description = $input['description']; 
+       $datetimepicker = $input['datetimepicker']; 
+       \DB::table('bigdata_reply')->insert(['contactid'=>$contactid, 'bigdata_replytype_id'=>$typeid,'datetime'=>date('Y-m-d H:i:s',strtotime($datetimepicker)),'description'=>$description,'created_by'=>$created_by,'created_at'=>date('Y-m-d H:i:s')]);
+       return Redirect::back();
+    }
+    public function stageform(Request $request)
+    {
+        $input = $request->all();
+        $contactid = $input['contactid']; 
+       $created_by = $input['created_by'];     
+       $typeid = $input['typeid']; 
+       $description = $input['description']; 
+       \DB::table('bigdata_stageform')->insert(['contactid'=>$contactid, 'bigdata_stage_id'=>$typeid,'description'=>$description,'created_by'=>$created_by,'created_at'=>date('Y-m-d H:i:s')]);
+       return Redirect::back();
     }
 }

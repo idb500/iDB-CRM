@@ -62,7 +62,7 @@
 						<td>{{ $role->uname }}</td>
 						<td>{{ date('d M, Y h:i:a',strtotime($role->created_at)) }}</td>
 						<td>
-
+						<a class="btn btn-info" href="{{ url('stage/rule',$role->id) }}">Rule</a>
 							@can('stage-edit')
 							<a class="btn btn-primary" href="{{ route('stage.edit',$role->id) }}">Edit</a>
 							@endcan

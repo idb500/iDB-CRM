@@ -18,6 +18,10 @@ class TicketController extends Controller
      * @param Request $request
      * @return void
      */
+    public function template()
+    {
+        return view('ticket/template');
+    }
     public function TicketStatus(Request $request)
     {
         $TicketStatus = TicketStatus::get();

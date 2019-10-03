@@ -8,11 +8,13 @@
 
 <!--begin:: Portlet-->
 @foreach ($contact as $key => $role)
-<?php
-
+@php
 $contactcount = \DB::table('contact')->where(['list_id'=>$role->id])->count();   
-$latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('id', 'DESC')->first();   
-?>
+
+$latestnote = \DB::table('list_note')->select('list_note.*','users.name as rname')->join("users", "users.id", "=", "list_note.created_by")->where(['list_note.list_id'=>$role->id])->orderBy('id', 'DESC')->first();   
+$latestnotecount = \DB::table('list_note')->select('list_note.*','users.name as rname')->join("users", "users.id", "=", "list_note.created_by")->where(['list_note.list_id'=>$role->id])->count();   
+   
+@endphp
 <div class="kt-portlet">
 								<div class="kt-portlet__body">
 									<div class="kt-widget kt-widget--user-profile-3">
@@ -37,7 +39,7 @@ $latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('i
                                        <a href="{{ url('/list') }}/{{ $role->id }}">
 														<button type="button" class="btn btn-label-success btn-sm btn-upper">Details</button></a>&nbsp;
 														@can('list-note')
-														<button type="button" data-toggle="modal" data-target="#kt_scrollable_modal_1" id="{{ $role->id }}" class="btn btn-brand btn-sm btn-upper view_data">Add Note</button>
+														<button type="button" data-toggle="modal" data-target="#kt_scrollable_modal_1" id="{{ $role->id }}" data-id="{{ $role->list_name}}" class="btn btn-brand btn-sm btn-upper view_data">Add List Note</button>
 													@endcan
 													</div>
 												</div>
@@ -62,7 +64,8 @@ $latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('i
 									
 
 													<div class="kt-widget__desc">
-												<b>	Note: </b>@if($latestnote!='') {{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }} {{ $latestnote->description }}  @endif
+												<b>	Note: </b>@if($latestnote!='') Added on <b>{{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }}</b> By <b>{{ $latestnote->rname }}</b><br/>
+												{{ $latestnote->description }}  @endif
 
 													</div>
 													
@@ -79,7 +82,7 @@ $latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('i
 												</div>
 												<div class="kt-widget__details">
 													<span class="kt-widget__title">Total Campaign Done</span>
-													<span class="kt-widget__value"><span></span>24500</span>
+													<span class="kt-widget__value"><span></span>{{$latestnotecount}}</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -126,7 +129,10 @@ $latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('i
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
-<h5 class="modal-title" id="exampleModalLabel">New Note</h5>
+
+<h5 class="modal-title" id="exampleModalLabel">New List Note (<input readonly id="listname">)</h5>
+
+
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">&times;</span>
 </button>
@@ -139,6 +145,7 @@ $latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('i
 <label for="recipient-name" class="form-control-label">Type:</label>
 <input class="form-control" name="created_by" type="hidden" value="{{ Auth::user()->id }}">
 <input type="hidden" class="form-control" name="contactid" id="contactid" value>
+
 <select class="form-control" name="typeid" required>
                             <option>Select Type</option>
                             @foreach($stag2 as $value)
@@ -170,9 +177,16 @@ $latestnote = \DB::table('list_note')->where(['list_id'=>$role->id])->orderBy('i
  $(document).ready(function(){  
       $('.view_data').click(function(){  
            var employee_detail = $(this).attr("id");
+		  
+		   myRoomNumber = $(this).attr('data-id');
+		  
 		   $("#contactid").val( employee_detail );
+		   $("#listname").val( myRoomNumber );
 	  });
+	 
+	 
  }); 
+
 </script>
 
 @endsection

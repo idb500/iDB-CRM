@@ -23,6 +23,8 @@ Route::get('/sales', 'CategoryController@sales');
 Route::get('/bigdata', 'CategoryController@bigdata');
 Route::get('/help', 'CategoryController@help');
 Route::get('/kb', 'CategoryController@kb');
+Route::get('/template', 'TemplateController@template');
+Route::get('/ticket', 'TicketController@template');
 // Role, Users
     Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles','RoleController');
@@ -35,6 +37,7 @@ Route::get('/kb', 'CategoryController@kb');
    
     Route::get('contact', ['uses'=>'ContactController@index', 'middleware' => ['permission:list']]);
     Route::get('list/{listid}', ['uses'=>'ContactController@listdata', 'middleware' => ['permission:contact']]);
+    Route::get('nooflist/{listid}', ['uses'=>'ContactController@nooflist', 'middleware' => ['permission:contact']]);
     Route::post('store', ['uses'=>'ContactController@store', 'middleware' => ['permission:contact-assigned']]);
     Route::post('listnote', ['uses'=>'ContactController@listnote', 'middleware' => ['permission:list-note']]);
     Route::post('listnote2', ['uses'=>'ContactController@listnote2', 'middleware' => ['permission:list-note']]);
@@ -43,7 +46,9 @@ Route::get('/kb', 'CategoryController@kb');
     Route::post('listnote_contact_lead', ['uses'=>'ContactController@listnote_contact_lead', 'middleware' => ['permission:list-note']]);
     Route::post('remainder', ['uses'=>'ContactController@remainder']);
  //   Route::get('users-list', 'ContactController@usersList');
-    
+
+ Route::post('addreply_form', ['uses'=>'ContactController@addreply_form', 'middleware' => ['permission:list-note']]);
+ Route::post('stageform', ['uses'=>'ContactController@stageform', 'middleware' => ['permission:list-note']]);
  
     Route::get('contactlist', ['uses'=>'ContactController@contactlist', 'middleware' => ['permission:contact-list']]);
     Route::get('opportunitylist', ['uses'=>'ContactController@opportunitylist']);
@@ -62,7 +67,40 @@ Route::get('/kb', 'CategoryController@kb');
     Route::post('remainder_contact_opportunity', ['uses'=>'ContactController@remainder_contact_opportunity']);
     Route::post('remainder_contact_lead', ['uses'=>'ContactController@remainder_contact_lead']);
     Route::resource('note_type', 'Note_typeController');
+    Route::resource('settings/reply_type', 'ReplytypeController');
+    Route::resource('settings/bigdatastage', 'BigdataStageController');
     Route::get('contactdetails/{id}', ['uses'=>'ContactController@contactdetails']);
+    Route::get('createlist', 'ContactController@createlist');
+    Route::post('listcreatestore2', 'ContactController@listcreatestore');
+
+    // Template SMS
+Route::get('template/sms', 'TemplateController@smsindex');
+Route::get('template/sms/create', 'TemplateController@smscreate');
+Route::post('template/sms/store', 'TemplateController@smsstore');
+Route::get('template/sms/edit/{id}', 'TemplateController@smsedit');
+Route::post('template/sms/update/{id}', 'TemplateController@smsupdate');
+Route::delete('template/sms/destroy/{id}', 'TemplateController@smsdestroy');
+Route::get('template/sms/show/{id}', 'TemplateController@smsshow');  
+    // Template Email
+    Route::get('template/email', 'TemplateController@emailindex');
+    Route::get('template/email/create', 'TemplateController@emailcreate');
+    Route::post('template/email/store', 'TemplateController@emailstore');
+    Route::get('template/email/edit/{id}', 'TemplateController@emailedit');
+    Route::post('template/email/update/{id}', 'TemplateController@emailupdate');
+    Route::delete('template/email/destroy/{id}', 'TemplateController@emaildestroy');
+    Route::get('template/email/show/{id}', 'TemplateController@emailshow');  
+        // Template Whatsapp
+Route::get('template/whatsapp', 'TemplateController@whatsappindex');
+Route::get('template/whatsapp/create', 'TemplateController@whatsappcreate');
+Route::post('template/whatsapp/store', 'TemplateController@whatsappstore');
+Route::get('template/whatsapp/edit/{id}', 'TemplateController@whatsappedit');
+Route::post('template/whatsapp/update/{id}', 'TemplateController@whatsappupdate');
+Route::delete('template/whatsapp/destroy/{id}', 'TemplateController@whatsappdestroy');
+Route::get('template/whatsapp/show/{id}', 'TemplateController@whatsappshow');
+
+Route::get('stage/rule/{id}', 'StageController@rule');
+Route::get('stage/addrule/{id}', 'StageController@addrule');
+Route::post('stage/rulestore', 'StageController@rulestore');
 });
 
 // Update Company Profile

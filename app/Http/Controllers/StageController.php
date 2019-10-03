@@ -93,4 +93,42 @@ class StageController extends Controller
         return redirect()->route('stage.index')
                         ->with('success','Stage deleted successfully');
     }
+    
+    public function addrule($id)
+    {
+        $email_template = \DB::table('email_template')->get(); 
+        $sms_template = \DB::table('sms_template')->get(); 
+        $whatsapp_template = \DB::table('whatsapp_template')->get();   
+        $users = \DB::table('roles')->get();   
+        return view('stage.addrule',compact('email_template','sms_template','whatsapp_template','users','id'));
+    }
+
+    public function rulestore(Request $request)
+    {
+        $input = $request->all();
+        $created_by = $input['created_by']; 
+        $stagerulename = $input['stagerulename']; 
+        $entry_sms_template = $input['entry_sms_template']; 
+        $entry_email_template = $input['entry_email_template']; 
+        $entry_whatsapp_template = $input['entry_whatsapp_template']; 
+        $exit_sms_template = $input['exit_sms_template']; 
+        $exit_email_template = $input['exit_email_template']; 
+        $exit_whatsapp_template = $input['exit_whatsapp_template']; 
+        $expire_sms_template = $input['expire_sms_template']; 
+        $expire_email_template = $input['expire_email_template']; 
+        $expire_whatsapp_template = $input['expire_whatsapp_template']; 
+        $stageid = $input['stageid'];  
+        $assigned_to = $input['assigned_to']; 
+        $data = \DB::table('stage_rule')->insert(['assign_to'=>$assigned_to,'stageid'=>$stageid,'name'=>$stagerulename,'entry_sms_template'=>$entry_sms_template,
+        'entry_email_template'=>$entry_email_template,'entry_whatsapp_template'=>$entry_whatsapp_template,'exit_sms_template'=>$exit_sms_template,'exit_email_template'=>$exit_email_template,
+        'exit_whatsapp_template'=>$exit_whatsapp_template,'expire_sms_template'=>$expire_sms_template,'expire_email_template'=>$expire_email_template,'expire_whatsapp_template'=>$expire_whatsapp_template,
+        'created_by'=>$created_by,'created_at'=>date('Y-m-d H:i:s') ,'updated_at'=>date('Y-m-d H:i:s')]);
+        return redirect()->route('stage.index')
+                        ->with('success','stage rule created successfully');
+    }
+    public function rule($id)
+    {
+        $stage_rule = \DB::table('stage_rule')->where('stageid','=',$id)->get(); 
+        return view('stage.show',compact('stage_rule','id'));
+    }
 }

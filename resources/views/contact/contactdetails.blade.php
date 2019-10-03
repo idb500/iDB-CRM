@@ -22,11 +22,17 @@ $remainderlatest = \DB::table('contact_remainder')->where([['contact_id','=',$co
 
 $latestnote11 = \DB::table('list_note')->where([['list_id','=',$role->list_id],['stage','=',0]])->orderBy('id', 'DESC')->get(); 
 $latestnote21 = \DB::table('list_note')->where([['contact_id','=',$contactid],['stage','=',0]])->orderBy('id', 'DESC')->get(); 
-$latestnote31 = \DB::table('contact_remainder')->where([['contact_id','=',$contactid],['stage','=',0]])->orderBy('id', 'DESC')->get(); 
+$latestnote31 = \DB::table('contact_remainder')->where([['contact_id','=',$contactid],['stage','=',0]])->orderBy('id', 'DESC')->get();
+
+$latestnote41 = \DB::table('bigdata_reply')->where([['contactid','=',$contactid],['stage','=',0]])->orderBy('id', 'DESC')->get(); 
+$latestnote51 = \DB::table('bigdata_stageform')->where([['contactid','=',$contactid],['stage','=',0]])->orderBy('id', 'DESC')->get();  
+
 $array1 = array($latestnote11);
 $array2 = array($latestnote21);
 $array3 = array($latestnote31);
-$newArray = array_merge($array1, $array2, $array3);
+$array4 = array($latestnote41);
+$array5 = array($latestnote51);
+$newArray = array_merge($array1, $array2, $array3, $array4, $array5);
 $singleArray = []; 
 foreach($newArray as $array) {
     foreach($array as $k=>$v) {
@@ -301,6 +307,16 @@ var x = setInterval(function() {
 															@endif
 															@if(!empty($rolgfe->sub_type))
                                                             <?php  $iconclass = \DB::table('stages')->where(['id'=>$rolgfe->sub_type])->first();  ?>
+                                                            <i class="{{ $iconclass->icon }}"></i> 
+                                                          
+															@endif
+															@if(!empty($rolgfe->bigdata_replytype_id))
+                                                            <?php  $iconclass = \DB::table('bid_date_replytype')->where(['id'=>$rolgfe->bigdata_replytype_id])->first();  ?>
+                                                            <i class="{{ $iconclass->icon }}"></i> 
+                                                          
+															@endif
+															@if(!empty($rolgfe->bigdata_stage_id))
+                                                            <?php  $iconclass = \DB::table('bigdata_stage')->where(['id'=>$rolgfe->bigdata_stage_id])->first();  ?>
                                                             <i class="{{ $iconclass->icon }}"></i> 
                                                           
 															@endif

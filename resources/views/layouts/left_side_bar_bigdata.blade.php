@@ -44,9 +44,9 @@
                 <div id="kt_aside_menu" class="kt-aside-menu  kt-aside-menu--dropdown " data-ktmenu-vertical="1" data-ktmenu-dropdown="1" data-ktmenu-scroll="0">
                     <ul class="kt-menu__nav ">
 
-                    <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--submenu-fullheight" aria-haspopup="true"><span class="kt-menu__link"><span class="">List</span></span></li>
-                    <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--submenu-fullheight" aria-haspopup="true"><span class="kt-menu__link"><span class="">Contact</span></span></li>
-                    <!-- <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--submenu-fullheight" aria-haspopup="true"><span class="kt-menu__link"><span class="">Leads</span></span></li>
+                    <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--submenu-fullheight" aria-haspopup="true"><span class="kt-menu__link"><a href="{{ url('contact') }}"><span class="">List</span></a></span></li>
+                    <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--submenu-fullheight" aria-haspopup="true"><span class="kt-menu__link"><a href="{{ url('createlist') }}"><span class="">Add List</span></a></span></li>
+                    <!-- <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--submenu-fullheight" aria-haspopup="true"><span class="kt-menu__link"><span class="">Add List</span></span></li>
                     <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--submenu-fullheight" aria-haspopup="true"><span class="kt-menu__link"><span class="">Reminder</span></span></li>
                     <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--submenu-fullheight" aria-haspopup="true"><span class="kt-menu__link"><span class="">Notes</span></span></li>
  -->
@@ -113,10 +113,12 @@
             @can('stage-list')
                                     <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('stage.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Stages</span></a></li>
                                     @endcan
+                                    <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('bigdatastage.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Bigdata Stage</span></a></li>
+                                    <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('reply_type.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Bigdata Replytype</span></a></li>
+                                  
                                     <li class="kt-menu__item " aria-haspopup="true"><a href="{{ route('note_type.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Note Type</span></a></li>
-                                    <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('tickets/settings/status') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Ticket Status</span></a></li>
-                                   <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('tickets/settings/priority') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Ticket Priority</span></a></li>
-                                   <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('tickets/settings/category') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Ticket Category</span></a></li>
+                                    <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('ticket') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Ticket</span></a></li>
+                                   <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('template') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Template</span></a></li>
                                   
                                     </ul>
                             </div>
