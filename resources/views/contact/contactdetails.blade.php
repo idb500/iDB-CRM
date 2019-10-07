@@ -303,10 +303,30 @@ var x = setInterval(function() {
 								<div class="col-lg-12">
 
 									<!--Begin::Portlet-->
-                                    <div class="kt-portlet" style="margin-top:3%;">
-                                    <div class="col-lg-12" style="padding: 10px;border-bottom: 1px solid #dee2e6;">Contact</div>
-										<div class="kt-portlet__body">
-											<div class="kt-notes">
+									<div class="kt-portlet" style="margin-top:5%;">
+
+										<ul class="nav nav-tabs nav-fill" role="tablist">
+                                            <li class="nav-item">
+													<a class="nav-link active" data-toggle="tab" href="#kt_tabs_c1">Contact</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" data-toggle="tab" href="#kt_tabs_c2">Contact1</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" data-toggle="tab" href="#kt_tabs_c3">Contact2</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" data-toggle="tab" href="#kt_tabs_c4">Contact3</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" data-toggle="tab" href="#kt_tabs_c5">Contact4</a>
+												</li>
+											</ul>
+
+											<div class="tab-content">
+												<div class="tab-pane active" id="kt_tabs_c1" role="tabpanel">
+												<div class="kt-notes">
+												<div class="kt-portlet__body">
 												<div class="kt-notes__items">
                                                 @foreach ($singleArray as $rolgfe)
 													<div class="kt-notes__item">
@@ -366,7 +386,49 @@ var x = setInterval(function() {
 											
                             @endforeach
 												</div>
+</div>
 											</div>
+
+</div>
+
+<div class="tab-pane" id="kt_tabs_c2" role="tabpanel">
+<div class="kt-notes">
+<div class="kt-portlet__body">
+	<h2>Second Tab</h2>
+</div>
+</div>
+</div>
+
+
+<div class="tab-pane" id="kt_tabs_c3" role="tabpanel">
+<div class="kt-notes">
+<div class="kt-portlet__body">
+	<h2>Third Tab</h2>
+</div>
+</div>
+</div>
+
+<div class="tab-pane" id="kt_tabs_c4" role="tabpanel">
+<div class="kt-notes">
+<div class="kt-portlet__body">
+	<h2>Fourth Tab</h2>
+</div>
+</div>
+</div>
+
+<div class="tab-pane" id="kt_tabs_c5" role="tabpanel">
+<div class="kt-notes">
+<div class="kt-portlet__body">
+	<h2>FIfth Tab</h2>
+</div>
+</div>
+</div>
+
+</div>
+
+
+										<div class="kt-portlet__body">
+											
                                         </div>
                                         <div class="col-lg-12" style="padding: 10px;border-bottom: 1px solid #dee2e6;">Ticketing System</div>
                                         <div class="kt-portlet__body">
@@ -542,9 +604,8 @@ var x = setInterval(function() {
 											</div>
 											<div class="row">
 								<div class="col-lg-12">
-
 									<!--Begin::Portlet-->
-                                    <div class="kt-portlet" style="margin-top:3%;">
+									<div class="kt-portlet" style="margin-top:3%;">
                                     <div class="col-lg-12" style="padding: 10px;border-bottom: 1px solid #dee2e6;">Contact</div>
 										<div class="kt-portlet__body">
 											<div class="kt-notes">
@@ -775,8 +836,15 @@ var x = setInterval(function() {
 								<div class="col-lg-12">
 
 									<!--Begin::Portlet-->
-                                    <div class="kt-portlet" style="margin-top:3%;">
-                                    <div class="col-lg-12" style="padding: 10px;border-bottom: 1px solid #dee2e6;">Contact</div>
+									<div class="kt-portlet" style="margin-top:3%;">
+									
+
+
+
+									
+
+
+                                    <div class="col-lg-12" style="padding: 10px;border-bottom: 1px solid #dee2e6;color:red">Contact</div>
 										<div class="kt-portlet__body">
 											<div class="kt-notes">
 												<div class="kt-notes__items">

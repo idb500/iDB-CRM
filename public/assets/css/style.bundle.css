@@ -37422,3 +37422,12 @@ body {
         font-size: 17px;
         color: dimgray !important;
         }
+
+        .modal_header_list_name{
+          border: none;
+          margin-left: 16px;
+          font-size: 16px;
+          color: #424242;
+          margin-top: 5px;
+          margin-bottom: 10px;
+        }
