@@ -12,6 +12,7 @@ use Auth;
 class TemplateController extends Controller
 {
     //
+   
     public function template()
     {
         return view('template/template');

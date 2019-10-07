@@ -1,6 +1,7 @@
 @include('layouts.header')
 @include('layouts.left_side_bar_sales')
 @section('content')
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <div class="kt-portlet">
 <form action="{{ url('/multiple_transfer_opportunity') }}" method="post" class="kt-form kt-form--label-right">
@@ -39,21 +40,29 @@
     </div>
 
 </div>
-<?php $i=0; ?>
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+{{ $contact->render() }}
+@php $i=0; @endphp
 @foreach ($contact as $key => $role)
-<?php
+@php
 $i++;
 $contactid=$role->id;
 
 $latestnote1 = \DB::table('list_note')->where(['contact_id'=>$contactid])->orderBy('id', 'DESC')->first();  
 if($latestnote1!=''){
-	$latestnote = \DB::table('list_note')->where(['contact_id'=>$contactid])->orderBy('id', 'DESC')->first();  
+	$latestnote = \DB::table('list_note')->select('list_note.*','users.name as rname')->join("users", "users.id", "=", "list_note.created_by")->where(['list_note.contact_id'=>$contactid])->orderBy('id', 'DESC')->first();   
 } else{
-	$latestnote = \DB::table('list_note')->where(['list_id'=>$role->list_id])->orderBy('id', 'DESC')->first(); 
+	$latestnote = \DB::table('list_note')->select('list_note.*','users.name as rname')->join("users", "users.id", "=", "list_note.created_by")->where(['list_note.list_id'=>$role->list_id])->orderBy('id', 'DESC')->first();   
 }
 $remainderlatest = \DB::table('contact_remainder')->where([['contact_id','=',$contactid],['datetime' , '>=' ,date('Y-m-d H:i:s')]])->orderBy('datetime', 'ASC')->first(); 
 
-?>
+$latestnotecontactcount = \DB::table('list_note')->select('list_note.*','users.name as rname')->join("users", "users.id", "=", "list_note.created_by")->where(['list_note.contact_id'=>$contactid])->count();     
+$nooflistcount = DB::table('contact')->select(DB::raw('count(DISTINCT(list_id)) as name_count'))->where(['registrant_email'=>$role->registrant_email])->get();
+$activeremaindercount = DB::table('contact_remainder')->where([['contact_id','=',$contactid],['datetime' , '>=' ,date('Y-m-d H:i:s')],['stage' , '=' ,1]])->count(); 
+$totalreplycount = DB::table('bigdata_reply')->where([['contactid','=',$contactid],['stage' , '=' ,1]])->count(); 
+$parameter= Crypt::encrypt($role->registrant_email);
+
+@endphp
 <script>
 // Set the date we're counting down to
 var countDownDate{{$i}} = new Date("@if($remainderlatest!='') {{ date('M d, Y H:i:s',strtotime($remainderlatest->datetime)) }} @endif").getTime();
@@ -130,7 +139,9 @@ var x = setInterval(function() {
 												</div>
 												<div class="kt-widget__info">
 													<div class="kt-widget__desc">
-													<b>Last Note :</b> @if($latestnote!='') {{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }} {{ $latestnote->description }}  @endif
+													<b>	Last Note : </b>@if($latestnote!='') Added on <b>{{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }}</b> By <b>{{ $latestnote->rname }}</b><br/>
+												{{ $latestnote->description }}  @endif
+												
 													</div>
 												
 												</div>
@@ -144,17 +155,21 @@ var x = setInterval(function() {
 												</div>
 												<div class="kt-widget__details">
 													<span class="kt-widget__title">Total Campaign Note</span>
-													<span class="kt-widget__value"><span></span>24</span>
+													<span class="kt-widget__value"><span></span>{{ $latestnotecontactcount }}</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-confetti"></i>
 												</div>
+												<a href="{{ url('nooflist') }}/{{$parameter}}">
 												<div class="kt-widget__details">
+												
 													<span class="kt-widget__title">No Of List</span>
-													<span class="kt-widget__value"><span></span>16</span>
+													<span class="kt-widget__value">{{ $nooflistcount[0]->name_count }}</span>
+												
 												</div>
+												</a>
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
@@ -162,7 +177,7 @@ var x = setInterval(function() {
 												</div>
 												<div class="kt-widget__details">
 													<span class="kt-widget__title">Active Remainder</span>
-													<span class="kt-widget__value"><span></span>78</span>
+													<span class="kt-widget__value"><span></span>{{$activeremaindercount}}</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -170,8 +185,8 @@ var x = setInterval(function() {
 													<i class="flaticon-pie-chart"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">Total Ticket</span>
-													<span class="kt-widget__value"><span></span>78</span>
+													<span class="kt-widget__title">Total ticket</span>
+													<span class="kt-widget__value"><span></span>0</span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
@@ -179,17 +194,17 @@ var x = setInterval(function() {
 													<i class="flaticon-file-2"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">Total Notes</span>
-													<a href="#" class="kt-widget__value kt-font-brand">10</a>
+													<span class="kt-widget__title">Total Reply</span>
+													<a href="#" class="kt-widget__value kt-font-brand">{{ $totalreplycount }}</a>
 												</div>
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
-													<i class="flaticon-chat-1"></i>
+													<i class="flaticon-file-2"></i>
 												</div>
 												<div class="kt-widget__details">
-													<span class="kt-widget__title">Total Notes</span>
-													<a href="#" class="kt-widget__value kt-font-brand">5</a>
+													<span class="kt-widget__title">Total Note</span>
+													<a href="#" class="kt-widget__value kt-font-brand">{{ $latestnotecontactcount }}</a>
 												</div>
 											</div>
 										
@@ -201,6 +216,8 @@ var x = setInterval(function() {
 							@endforeach
 							<!--end:: Portlet-->
 							</form>
+							{{ $contact->render() }}
+							</div>
 							
       <div class="modal fade" id="kt_scrollable_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">

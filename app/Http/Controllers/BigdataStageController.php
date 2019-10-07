@@ -12,7 +12,13 @@ use Auth;
 class BigdataStageController extends Controller
 {
    
-
+    function __construct()
+    {
+         $this->middleware('permission:Bigdata-stage-list');
+         $this->middleware('permission:Bigdata-stage-create', ['only' => ['create','store']]);
+         $this->middleware('permission:Bigdata-stage-update', ['only' => ['edit','update']]);
+         $this->middleware('permission:Bigdata-stage-delete', ['only' => ['destroy']]);
+    }
     public function index(Request $request)
     {
         $stages = \DB::table('bigdata_stage')->select('bigdata_stage.*','users.name as uname')->join("users", "users.id", "=", "bigdata_stage.created_by")->get();   

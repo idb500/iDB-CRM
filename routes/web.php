@@ -74,13 +74,13 @@ Route::get('/ticket', 'TicketController@template');
     Route::post('listcreatestore2', 'ContactController@listcreatestore');
 
     // Template SMS
-Route::get('template/sms', 'TemplateController@smsindex');
-Route::get('template/sms/create', 'TemplateController@smscreate');
-Route::post('template/sms/store', 'TemplateController@smsstore');
-Route::get('template/sms/edit/{id}', 'TemplateController@smsedit');
-Route::post('template/sms/update/{id}', 'TemplateController@smsupdate');
-Route::delete('template/sms/destroy/{id}', 'TemplateController@smsdestroy');
-Route::get('template/sms/show/{id}', 'TemplateController@smsshow');  
+Route::get('template/sms', ['uses'=>'TemplateController@smsindex', 'middleware' => ['permission:sms-template-list']]);
+Route::get('template/sms/create', ['uses'=>'TemplateController@smscreate', 'middleware' => ['permission:sms-template-create']]);
+Route::post('template/sms/store', ['uses'=>'TemplateController@smsstore', 'middleware' => ['permission:sms-template-create']]);
+Route::get('template/sms/edit/{id}', ['uses'=>'TemplateController@smsedit', 'middleware' => ['permission:sms-template-update']]);
+Route::post('template/sms/update/{id}', ['uses'=>'TemplateController@smsupdate', 'middleware' => ['permission:sms-template-update']]);
+Route::delete('template/sms/destroy/{id}', ['uses'=>'TemplateController@smsdestroy', 'middleware' => ['permission:sms-template-delete']]);
+Route::get('template/sms/show/{id}', ['uses'=>'TemplateController@smsshow', 'middleware' => ['permission:sms-template-show']]);  
     // Template Email
     Route::get('template/email', 'TemplateController@emailindex');
     Route::get('template/email/create', 'TemplateController@emailcreate');

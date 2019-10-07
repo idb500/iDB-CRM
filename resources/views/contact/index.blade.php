@@ -5,7 +5,7 @@
      
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
-
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
 <!--begin:: Portlet-->
 @foreach ($contact as $key => $role)
 @php
@@ -15,6 +15,7 @@ $latestnote = \DB::table('list_note')->select('list_note.*','users.name as rname
 $latestnotecount = \DB::table('list_note')->select('list_note.*','users.name as rname')->join("users", "users.id", "=", "list_note.created_by")->where(['list_note.list_id'=>$role->id])->count();   
    
 @endphp
+
 <div class="kt-portlet">
 								<div class="kt-portlet__body">
 									<div class="kt-widget kt-widget--user-profile-3">
@@ -120,9 +121,9 @@ $latestnotecount = \DB::table('list_note')->select('list_note.*','users.name as 
 							</div>
 							@endforeach
 							<!--end:: Portlet-->
-                       
+                       {{ $contact->render() }}
 
-
+</div>
 <!-- note model start -->
 
 <div class="modal fade" id="kt_scrollable_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

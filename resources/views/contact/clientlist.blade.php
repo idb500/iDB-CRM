@@ -148,7 +148,7 @@ var x = setInterval(function() {
 							</div>
 							@endforeach
 							<!--end:: Portlet-->
-						
+							{{ $contact->render() }}
       <div class="modal fade" id="kt_scrollable_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
 <div class="modal-content">

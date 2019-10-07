@@ -14,10 +14,10 @@ class Note_typeController extends Controller
     //
     function __construct()
     {
-         $this->middleware('permission:category-list');
-         $this->middleware('permission:category-create', ['only' => ['create','store']]);
-         $this->middleware('permission:category-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:category-delete', ['only' => ['destroy']]);
+         $this->middleware('permission:Notetype-list');
+         $this->middleware('permission:Notetype-create', ['only' => ['create','store']]);
+         $this->middleware('permission:Notetype-update', ['only' => ['edit','update']]);
+         $this->middleware('permission:Notetype-delete', ['only' => ['destroy']]);
     }
 
     public function index(Request $request)

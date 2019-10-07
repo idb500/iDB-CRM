@@ -12,7 +12,13 @@ use Auth;
 class ReplytypeController extends Controller
 {
    
-
+    function __construct()
+    {
+         $this->middleware('permission:Bigdata-replytype-list');
+         $this->middleware('permission:Bigdata-replytype-create', ['only' => ['create','store']]);
+         $this->middleware('permission:Bigdata-replytype-update', ['only' => ['edit','update']]);
+         $this->middleware('permission:Bigdata-replytype-delete', ['only' => ['destroy']]);
+    }
     public function index(Request $request)
     {
         $stages = \DB::table('bid_date_replytype')->select('bid_date_replytype.*','users.name as uname')->join("users", "users.id", "=", "bid_date_replytype.created_by")->get();   

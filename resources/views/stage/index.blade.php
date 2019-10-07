@@ -53,6 +53,7 @@
 				</thead>
 				<tbody>
 					@foreach ($stages as $key => $role)
+					@php $totalrule = \DB::table('stage_rule')->where(['stageid'=>$role->id])->count();   @endphp
 					<tr>
 						<td>{{ ++$i }}</td>
 						<td>{{ $role->name }}</td>
@@ -62,7 +63,7 @@
 						<td>{{ $role->uname }}</td>
 						<td>{{ date('d M, Y h:i:a',strtotime($role->created_at)) }}</td>
 						<td>
-						<a class="btn btn-info" href="{{ url('stage/rule',$role->id) }}">Rule</a>
+						<a class="btn btn-info" href="{{ url('stage/rule',$role->id) }}"><span class="kt-badge kt-badge--warning">{{$totalrule}}</span>Rule</a>
 							@can('stage-edit')
 							<a class="btn btn-primary" href="{{ route('stage.edit',$role->id) }}">Edit</a>
 							@endcan

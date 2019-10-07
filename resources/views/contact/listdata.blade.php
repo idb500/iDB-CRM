@@ -147,7 +147,8 @@ $latestnotelistcount = \DB::table('list_note')->select('list_note.*','users.name
     </div>
 
 </div>
-
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+{{ $contact->render() }}
 @php $i=0; @endphp
 @foreach ($contact as $key => $role)
 @php
@@ -266,12 +267,14 @@ var x = setInterval(function() {
 												<div class="kt-widget__icon">
 													<i class="flaticon-confetti"></i>
 												</div>
-												<div class="kt-widget__details">
 												<a href="{{ url('nooflist') }}/{{$parameter}}">
+												<div class="kt-widget__details">
+												
 													<span class="kt-widget__title">No Of List</span>
 													<span class="kt-widget__value">{{ $nooflistcount[0]->name_count }}</span>
-												</a>
+												
 												</div>
+												</a>
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
@@ -306,7 +309,7 @@ var x = setInterval(function() {
 												</div>
 												<div class="kt-widget__details">
 													<span class="kt-widget__title">Total Notes</span>
-													<a href="#" class="kt-widget__value kt-font-brand">12</a>
+													<a href="#" class="kt-widget__value kt-font-brand">{{ $latestnotecontactcount }}</a>
 												</div>
 											</div>
 										
@@ -319,6 +322,8 @@ var x = setInterval(function() {
 
 </form>
 
+{{ $contact->render() }}
+</div>
 <div class="modal fade" id="kt_scrollable_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
 <div class="modal-content">

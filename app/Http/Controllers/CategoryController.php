@@ -80,10 +80,10 @@ class CategoryController extends Controller
         $stag2 = \DB::table('note_type')->get(); 
        $stages = \DB::table('users')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '=', 'Super Admin'],['users.id', '=', $id2]])->count();   
         if($stages=='1'){
-        $contact = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',0]])->get(); 
+        $contact = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',0]])->paginate(5); 
         $contactlistcount = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',0]])->count();   
          }else{
-            $contact = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id', '!=' ,$id2],['contact.stage','=',0]])->get();
+            $contact = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id', '!=' ,$id2],['contact.stage','=',0]])->paginate(5);
             $contactlistcount = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id', '!=' ,$id2],['contact.stage','=',0]])->count();
          }
          

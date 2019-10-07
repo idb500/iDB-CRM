@@ -43,9 +43,9 @@ class ContactController extends Controller
     $stages = \DB::table('users')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '=', 'Super Admin'],['users.id', '=', $id]])->count();   
   
     if($stages=='1'){
-    $contact = \DB::table('list')->select('list.*','users.name as uname')->join("users", "list.created_by", "=", "users.id")->get();   
+    $contact = \DB::table('list')->select('list.*','users.name as uname')->join("users", "list.created_by", "=", "users.id")->paginate(5);   
      }else{
-        $contact = \DB::table('list')->select('list.*','users.name as uname')>join("users", "list.created_by", "=", "users.id")->where('list.assign_marketing_head' , '=' , $id)->get();
+        $contact = \DB::table('list')->select('list.*','users.name as uname')>join("users", "list.created_by", "=", "users.id")->where('list.assign_marketing_head' , '=' , $id)->paginate(5); 
      }
         return view('contact.index',compact('contact','stag2'));
     }
@@ -60,9 +60,9 @@ class ContactController extends Controller
     $stages = \DB::table('users')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '=', 'Super Admin'],['users.id', '=', $id2]])->count();   
   
     if($stages=='1'){
-    $contact = \DB::table('contact')->where([['contact.list_id' , '=' , $listid],['contact.assigned_id', '=' ,0]])->get();   
+    $contact = \DB::table('contact')->where([['contact.list_id' , '=' , $listid],['contact.assigned_id', '=' ,0]])->paginate(5);   
      }else{
-        $contact = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.list_id' , '=' , $listid],['contact.assigned_id' , '=' ,0]])->get();
+        $contact = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.list_id' , '=' , $listid],['contact.assigned_id' , '=' ,0]])->paginate(5); 
      }
         return view('contact.listdata',compact('contact','users','stag2','listid','addreplyform','stage'));
     }
@@ -94,10 +94,10 @@ class ContactController extends Controller
     $stag2 = \DB::table('note_type')->get(); 
    $stages = \DB::table('users')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '=', 'Super Admin'],['users.id', '=', $id2]])->count();   
     if($stages=='1'){
-    $contact = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',0]])->get(); 
+    $contact = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',0]])->paginate(5); 
     $contactlistcount = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',0]])->count();   
      }else{
-        $contact = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id', '=' ,$id2],['contact.stage','=',0]])->get();
+        $contact = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id', '=' ,$id2],['contact.stage','=',0]])->paginate(5);
         $contactlistcount = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id', '!=' ,$id2],['contact.stage','=',0]])->count();
      }
      
@@ -194,10 +194,10 @@ class ContactController extends Controller
     $stag2 = \DB::table('note_type')->get(); 
    $stages = \DB::table('users')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '=', 'Super Admin'],['users.id', '=', $id2]])->count();   
     if($stages=='1'){
-    $contact = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',1]])->get();  
+    $contact = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',1]])->paginate(5);  
     $contactlistcount = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',1]])->count();    
      }else{
-        $contact = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id' , '=' ,$id2],['contact.stage','=',1]])->get();
+        $contact = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id' , '=' ,$id2],['contact.stage','=',1]])->paginate(5);
         $contactlistcount = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id' , '=' ,$id2],['contact.stage','=',1]])->count();
     }
         return view('contact.opportunitylist',compact('contact','stag','stag2','contactlistcount'));
@@ -209,10 +209,10 @@ class ContactController extends Controller
     $stag2 = \DB::table('note_type')->get(); 
    $stages = \DB::table('users')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '=', 'Super Admin'],['users.id', '=', $id2]])->count();   
     if($stages=='1'){
-    $contact = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',2]])->get(); 
+    $contact = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',2]])->paginate(5); 
     $contactlistcount = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',2]])->count();    
      }else{
-        $contact = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id' , '=' ,$id2],['contact.stage','=',2]])->get();
+        $contact = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id' , '=' ,$id2],['contact.stage','=',2]])->paginate(5);
         $contactlistcount = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id' , '=' ,$id2],['contact.stage','=',2]])->count();
     
     }
@@ -351,10 +351,10 @@ class ContactController extends Controller
     $stag2 = \DB::table('note_type')->get(); 
    $stages = \DB::table('users')->join("model_has_roles", "model_has_roles.model_id", "=", "users.id")->join("roles", "roles.id", "=", "model_has_roles.role_id")->where([['roles.name', '=', 'Super Admin'],['users.id', '=', $id2]])->count();   
     if($stages=='1'){
-    $contact = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',3]])->get(); 
+    $contact = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',3]])->paginate(5); 
     $contactlistcount = \DB::table('contact')->where([['contact.assigned_id', '!=' ,0],['contact.stage','=',3]])->count();    
      }else{
-        $contact = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id' , '=' ,$id2],['contact.stage','=',3]])->get();
+        $contact = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id' , '=' ,$id2],['contact.stage','=',3]])->paginate(5);
         $contactlistcount = \DB::table('contact')->select('contact.*')->join("list", "list.id", "=", "contact.list_id")->where([['contact.assigned_id' , '=' ,$id2],['contact.stage','=',3]])->count();
     
     }
@@ -424,7 +424,7 @@ class ContactController extends Controller
     public function nooflist($listid)
     {
         $dataemail = Crypt::decrypt($listid);
-        $stages = DB::table('contact')->select('list.*')->join("list", "list.id", "=", "contact.list_id")->where(['contact.registrant_email'=>$dataemail])->get();
+        $stages = DB::table('contact')->select('list.*')->join("list", "list.id", "=", "contact.list_id")->where(['contact.registrant_email'=>$dataemail])->distinct()->get();
         return view('contact.nooflist',compact('stages'));
        
     }

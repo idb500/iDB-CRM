@@ -14,16 +14,20 @@ $contactid=$role->id;
 $latestnote1 = \DB::table('list_note')->where(['contact_id'=>$contactid])->orderBy('id', 'DESC')->first();  
 
 if($latestnote1!=''){
-	$latestnote = \DB::table('list_note')->where(['contact_id'=>$contactid])->orderBy('id', 'DESC')->first();  
+	$latestnote = \DB::table('list_note')->select('list_note.*','users.name as rname')->join("users", "users.id", "=", "list_note.created_by")->where(['list_note.contact_id'=>$contactid])->orderBy('id', 'DESC')->first();   
 } else{
-	$latestnote = \DB::table('list_note')->where(['list_id'=>$role->list_id])->orderBy('id', 'DESC')->first(); 
+	$latestnote = \DB::table('list_note')->select('list_note.*','users.name as rname')->join("users", "users.id", "=", "list_note.created_by")->where(['list_id'=>$role->list_id])->orderBy('id', 'DESC')->first();   
 }
 $remainderlatest = \DB::table('contact_remainder')->where([['contact_id','=',$contactid],['datetime' , '>=' ,date('Y-m-d H:i:s')]])->orderBy('datetime', 'ASC')->first(); 
 
+$latestnotecontactcount = \DB::table('list_note')->select('list_note.*','users.name as rname')->join("users", "users.id", "=", "list_note.created_by")->where(['list_note.contact_id'=>$contactid])->count();     
+$nooflistcount = DB::table('contact')->select(DB::raw('count(DISTINCT(list_id)) as name_count'))->where(['registrant_email'=>$role->registrant_email])->get();
+$activeremaindercount = DB::table('contact_remainder')->where([['contact_id','=',$contactid],['datetime' , '>=' ,date('Y-m-d H:i:s')],['stage' , '=' ,0]])->count(); 
+$totalreplycount = DB::table('bigdata_reply')->where([['contactid','=',$contactid],['stage' , '=' ,0]])->count(); 
+$parameter= Crypt::encrypt($role->registrant_email);
 $latestnote11 = \DB::table('list_note')->where([['list_id','=',$role->list_id],['stage','=',0]])->orderBy('id', 'DESC')->get(); 
 $latestnote21 = \DB::table('list_note')->where([['contact_id','=',$contactid],['stage','=',0]])->orderBy('id', 'DESC')->get(); 
 $latestnote31 = \DB::table('contact_remainder')->where([['contact_id','=',$contactid],['stage','=',0]])->orderBy('id', 'DESC')->get();
-
 $latestnote41 = \DB::table('bigdata_reply')->where([['contactid','=',$contactid],['stage','=',0]])->orderBy('id', 'DESC')->get(); 
 $latestnote51 = \DB::table('bigdata_stageform')->where([['contactid','=',$contactid],['stage','=',0]])->orderBy('id', 'DESC')->get();  
 
@@ -230,7 +234,9 @@ var x = setInterval(function() {
 
                                     <div class="kt-widget__info">
                                     <div class="kt-widget__desc">
-													<b>Last Note :</b> @if($latestnote!='') {{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }} {{ $latestnote->description }}  @endif
+									<b>	Last Note : </b>@if($latestnote!='') Added on <b>{{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }}</b> By <b>{{ $latestnote->rname }}</b><br/>
+												{{ $latestnote->description }}  @endif
+												
 													</div>
 												</div>
 											</div>
@@ -243,17 +249,19 @@ var x = setInterval(function() {
 												</div>
 												<div class="kt-widget__details">
                                                 <span class="kt-widget__title">Total Campaign Note</span>
-													<span class="kt-widget__value"><span></span>24</span>
+													<span class="kt-widget__value"><span></span>{{ $latestnotecontactcount }} </span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-confetti"></i>
 												</div>
+												<a href="{{ url('nooflist') }}/{{$parameter}}">
 												<div class="kt-widget__details">
 												<span class="kt-widget__title">No Of List</span>
-													<span class="kt-widget__value"><span></span>16</span>
+													<span class="kt-widget__value"><span></span>{{ $nooflistcount[0]->name_count }}</span>
 												</div>
+												</a>
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
@@ -261,25 +269,34 @@ var x = setInterval(function() {
 												</div>
 												<div class="kt-widget__details">
                                                 <span class="kt-widget__title">Active Remainder</span>
-													<span class="kt-widget__value"><span></span>78</span>
+													<span class="kt-widget__value"><span></span>{{$activeremaindercount}}</span>
 												</div>
 											</div>
-                                            <div class="kt-widget__item">
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-file-2"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Total Ticket</span>
+													<a href="#" class="kt-widget__value kt-font-brand">52</a>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-chat-1"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Total Reply</span>
+													<a href="#" class="kt-widget__value kt-font-brand">{{$totalreplycount}}</a>
+												</div>
+											</div>
+											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-chat-1"></i>
 												</div>
 												<div class="kt-widget__details">
 													<span class="kt-widget__title">Total Notes</span>
-													<a href="#" class="kt-widget__value kt-font-brand">5</a>
-												</div>
-											</div>
-											<div class="kt-widget__item">
-												<div class="kt-widget__icon">
-													<i class="flaticon-pie-chart"></i>
-												</div>
-												<div class="kt-widget__details">
-                                                <span class="kt-widget__title">Total Ticket</span>
-													<a href="#" class="kt-widget__value kt-font-brand">10</a>
+													<a href="#" class="kt-widget__value kt-font-brand">{{ $latestnotecontactcount }}</a>
 												</div>
 											</div>
 											<div class="row">
@@ -459,30 +476,33 @@ var x = setInterval(function() {
 
                                     <div class="kt-widget__info">
                                     <div class="kt-widget__desc">
-													<b>Last Note :</b> @if($latestnote!='') {{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }} {{ $latestnote->description }}  @endif
+									<b>	Last Note : </b>@if($latestnote!='') Added on <b>{{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }}</b> By <b>{{ $latestnote->rname }}</b><br/>
+												{{ $latestnote->description }}  @endif
 													</div>
 												</div>
 											</div>
 										</div>
 										
 										<div class="kt-widget__bottom">
-											<div class="kt-widget__item">
+										<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-piggy-bank"></i>
 												</div>
 												<div class="kt-widget__details">
                                                 <span class="kt-widget__title">Total Campaign Note</span>
-													<span class="kt-widget__value"><span></span>24</span>
+													<span class="kt-widget__value"><span></span>{{ $latestnotecontactcount }} </span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-confetti"></i>
 												</div>
+												<a href="{{ url('nooflist') }}/{{$parameter}}">
 												<div class="kt-widget__details">
 												<span class="kt-widget__title">No Of List</span>
-													<span class="kt-widget__value"><span></span>16</span>
+													<span class="kt-widget__value"><span></span>{{ $nooflistcount[0]->name_count }}</span>
 												</div>
+												</a>
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
@@ -490,25 +510,34 @@ var x = setInterval(function() {
 												</div>
 												<div class="kt-widget__details">
                                                 <span class="kt-widget__title">Active Remainder</span>
-													<span class="kt-widget__value"><span></span>78</span>
+													<span class="kt-widget__value"><span></span>{{$activeremaindercount}}</span>
 												</div>
 											</div>
-                                            <div class="kt-widget__item">
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-file-2"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Total Ticket</span>
+													<a href="#" class="kt-widget__value kt-font-brand">52</a>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-chat-1"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Total Reply</span>
+													<a href="#" class="kt-widget__value kt-font-brand">{{$totalreplycount}}</a>
+												</div>
+											</div>
+											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-chat-1"></i>
 												</div>
 												<div class="kt-widget__details">
 													<span class="kt-widget__title">Total Notes</span>
-													<a href="#" class="kt-widget__value kt-font-brand">5</a>
-												</div>
-											</div>
-											<div class="kt-widget__item">
-												<div class="kt-widget__icon">
-													<i class="flaticon-pie-chart"></i>
-												</div>
-												<div class="kt-widget__details">
-                                                <span class="kt-widget__title">Total Ticket</span>
-													<a href="#" class="kt-widget__value kt-font-brand">10</a>
+													<a href="#" class="kt-widget__value kt-font-brand">{{ $latestnotecontactcount }}</a>
 												</div>
 											</div>
 											<div class="row">
@@ -678,30 +707,33 @@ var x = setInterval(function() {
 
                                     <div class="kt-widget__info">
                                     <div class="kt-widget__desc">
-													<b>Last Note :</b> @if($latestnote!='') {{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }} {{ $latestnote->description }}  @endif
+									<b>	Last Note : </b>@if($latestnote!='') Added on <b>{{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }}</b> By <b>{{ $latestnote->rname }}</b><br/>
+												{{ $latestnote->description }}  @endif	
 													</div>
 												</div>
 											</div>
 										</div>
 										
 										<div class="kt-widget__bottom">
-											<div class="kt-widget__item">
+										<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-piggy-bank"></i>
 												</div>
 												<div class="kt-widget__details">
                                                 <span class="kt-widget__title">Total Campaign Note</span>
-													<span class="kt-widget__value"><span></span>24</span>
+													<span class="kt-widget__value"><span></span>{{ $latestnotecontactcount }} </span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-confetti"></i>
 												</div>
+												<a href="{{ url('nooflist') }}/{{$parameter}}">
 												<div class="kt-widget__details">
 												<span class="kt-widget__title">No Of List</span>
-													<span class="kt-widget__value"><span></span>16</span>
+													<span class="kt-widget__value"><span></span>{{ $nooflistcount[0]->name_count }}</span>
 												</div>
+												</a>
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
@@ -709,25 +741,34 @@ var x = setInterval(function() {
 												</div>
 												<div class="kt-widget__details">
                                                 <span class="kt-widget__title">Active Remainder</span>
-													<span class="kt-widget__value"><span></span>78</span>
+													<span class="kt-widget__value"><span></span>{{$activeremaindercount}}</span>
 												</div>
 											</div>
-                                            <div class="kt-widget__item">
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-file-2"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Total Ticket</span>
+													<a href="#" class="kt-widget__value kt-font-brand">52</a>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-chat-1"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Total Reply</span>
+													<a href="#" class="kt-widget__value kt-font-brand">{{$totalreplycount}}</a>
+												</div>
+											</div>
+											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-chat-1"></i>
 												</div>
 												<div class="kt-widget__details">
 													<span class="kt-widget__title">Total Notes</span>
-													<a href="#" class="kt-widget__value kt-font-brand">5</a>
-												</div>
-											</div>
-											<div class="kt-widget__item">
-												<div class="kt-widget__icon">
-													<i class="flaticon-pie-chart"></i>
-												</div>
-												<div class="kt-widget__details">
-                                                <span class="kt-widget__title">Total Ticket</span>
-													<a href="#" class="kt-widget__value kt-font-brand">10</a>
+													<a href="#" class="kt-widget__value kt-font-brand">{{ $latestnotecontactcount }}</a>
 												</div>
 											</div>
 											<div class="row">
@@ -897,30 +938,33 @@ var x = setInterval(function() {
 
                                     <div class="kt-widget__info">
                                     <div class="kt-widget__desc">
-													<b>Last Note :</b> @if($latestnote!='') {{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }} {{ $latestnote->description }}  @endif
-													</div>
+									<b>	Last Note : </b>@if($latestnote!='') Added on <b>{{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }}</b> By <b>{{ $latestnote->rname }}</b><br/>
+												{{ $latestnote->description }}  @endif
+												</div>
 												</div>
 											</div>
 										</div>
 										
 										<div class="kt-widget__bottom">
-											<div class="kt-widget__item">
+										<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-piggy-bank"></i>
 												</div>
 												<div class="kt-widget__details">
                                                 <span class="kt-widget__title">Total Campaign Note</span>
-													<span class="kt-widget__value"><span></span>24</span>
+													<span class="kt-widget__value"><span></span>{{ $latestnotecontactcount }} </span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-confetti"></i>
 												</div>
+												<a href="{{ url('nooflist') }}/{{$parameter}}">
 												<div class="kt-widget__details">
 												<span class="kt-widget__title">No Of List</span>
-													<span class="kt-widget__value"><span></span>16</span>
+													<span class="kt-widget__value"><span></span>{{ $nooflistcount[0]->name_count }}</span>
 												</div>
+												</a>
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
@@ -928,25 +972,34 @@ var x = setInterval(function() {
 												</div>
 												<div class="kt-widget__details">
                                                 <span class="kt-widget__title">Active Remainder</span>
-													<span class="kt-widget__value"><span></span>78</span>
+													<span class="kt-widget__value"><span></span>{{$activeremaindercount}}</span>
 												</div>
 											</div>
-                                            <div class="kt-widget__item">
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-file-2"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Total Ticket</span>
+													<a href="#" class="kt-widget__value kt-font-brand">52</a>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-chat-1"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Total Reply</span>
+													<a href="#" class="kt-widget__value kt-font-brand">{{$totalreplycount}}</a>
+												</div>
+											</div>
+											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-chat-1"></i>
 												</div>
 												<div class="kt-widget__details">
 													<span class="kt-widget__title">Total Notes</span>
-													<a href="#" class="kt-widget__value kt-font-brand">5</a>
-												</div>
-											</div>
-											<div class="kt-widget__item">
-												<div class="kt-widget__icon">
-													<i class="flaticon-pie-chart"></i>
-												</div>
-												<div class="kt-widget__details">
-                                                <span class="kt-widget__title">Total Ticket</span>
-													<a href="#" class="kt-widget__value kt-font-brand">10</a>
+													<a href="#" class="kt-widget__value kt-font-brand">{{ $latestnotecontactcount }}</a>
 												</div>
 											</div>
 											<div class="row">
@@ -1116,30 +1169,33 @@ var x = setInterval(function() {
 
                                     <div class="kt-widget__info">
                                     <div class="kt-widget__desc">
-													<b>Last Note :</b> @if($latestnote!='') {{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }} {{ $latestnote->description }}  @endif
-													</div>
+									<b>	Last Note : </b>@if($latestnote!='') Added on <b>{{ date('d M, Y h:i a',strtotime($latestnote->created_at)) }}</b> By <b>{{ $latestnote->rname }}</b><br/>
+												{{ $latestnote->description }}  @endif
+												</div>
 												</div>
 											</div>
 										</div>
 										
 										<div class="kt-widget__bottom">
-											<div class="kt-widget__item">
+										<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-piggy-bank"></i>
 												</div>
 												<div class="kt-widget__details">
                                                 <span class="kt-widget__title">Total Campaign Note</span>
-													<span class="kt-widget__value"><span></span>24</span>
+													<span class="kt-widget__value"><span></span>{{ $latestnotecontactcount }} </span>
 												</div>
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-confetti"></i>
 												</div>
+												<a href="{{ url('nooflist') }}/{{$parameter}}">
 												<div class="kt-widget__details">
 												<span class="kt-widget__title">No Of List</span>
-													<span class="kt-widget__value"><span></span>16</span>
+													<span class="kt-widget__value"><span></span>{{ $nooflistcount[0]->name_count }}</span>
 												</div>
+												</a>
 											</div>
 											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
@@ -1147,25 +1203,34 @@ var x = setInterval(function() {
 												</div>
 												<div class="kt-widget__details">
                                                 <span class="kt-widget__title">Active Remainder</span>
-													<span class="kt-widget__value"><span></span>78</span>
+													<span class="kt-widget__value"><span></span>{{$activeremaindercount}}</span>
 												</div>
 											</div>
-                                            <div class="kt-widget__item">
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-file-2"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Total Ticket</span>
+													<a href="#" class="kt-widget__value kt-font-brand">52</a>
+												</div>
+											</div>
+											<div class="kt-widget__item">
+												<div class="kt-widget__icon">
+													<i class="flaticon-chat-1"></i>
+												</div>
+												<div class="kt-widget__details">
+													<span class="kt-widget__title">Total Reply</span>
+													<a href="#" class="kt-widget__value kt-font-brand">{{$totalreplycount}}</a>
+												</div>
+											</div>
+											<div class="kt-widget__item">
 												<div class="kt-widget__icon">
 													<i class="flaticon-chat-1"></i>
 												</div>
 												<div class="kt-widget__details">
 													<span class="kt-widget__title">Total Notes</span>
-													<a href="#" class="kt-widget__value kt-font-brand">5</a>
-												</div>
-											</div>
-											<div class="kt-widget__item">
-												<div class="kt-widget__icon">
-													<i class="flaticon-pie-chart"></i>
-												</div>
-												<div class="kt-widget__details">
-                                                <span class="kt-widget__title">Total Ticket</span>
-													<a href="#" class="kt-widget__value kt-font-brand">10</a>
+													<a href="#" class="kt-widget__value kt-font-brand">{{ $latestnotecontactcount }}</a>
 												</div>
 											</div>
 											<div class="row">
