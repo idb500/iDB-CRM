@@ -5,6 +5,7 @@
      
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+<span><b>Total List : </b>{{ $listcount }}</span>
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
 <!--begin:: Portlet-->
 @foreach ($contact as $key => $role)
@@ -40,7 +41,7 @@ $latestnotecount = \DB::table('list_note')->select('list_note.*','users.name as 
                                        <a href="{{ url('/list') }}/{{ $role->id }}">
 														<button type="button" class="btn btn-label-success btn-sm btn-upper">Details</button></a>&nbsp;
 														@can('list-note')
-														<button type="button" data-toggle="modal" data-target="#kt_scrollable_modal_1" id="{{ $role->id }}" data-id="{{ $role->list_name}}" class="btn btn-brand btn-sm btn-upper view_data">Add List Note</button>
+														<button type="button" data-toggle="modal" data-target="#kt_scrollable_modal_1" id="{{ $role->id }}" data-id="{{ $role->list_name}}" class="btn btn-brand btn-sm btn-upper view_data">Add Campaign Note</button>
 													@endcan
 													</div>
 												</div>

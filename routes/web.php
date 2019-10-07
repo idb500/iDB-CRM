@@ -69,6 +69,8 @@ Route::get('/ticket', 'TicketController@template');
     Route::resource('note_type', 'Note_typeController');
     Route::resource('settings/reply_type', 'ReplytypeController');
     Route::resource('settings/bigdatastage', 'BigdataStageController');
+    
+    Route::resource('settings/campaignstatus', 'CampaignStatusController');
     Route::get('contactdetails/{id}', ['uses'=>'ContactController@contactdetails']);
     Route::get('createlist', 'ContactController@createlist');
     Route::post('listcreatestore2', 'ContactController@listcreatestore');
@@ -82,25 +84,25 @@ Route::post('template/sms/update/{id}', ['uses'=>'TemplateController@smsupdate',
 Route::delete('template/sms/destroy/{id}', ['uses'=>'TemplateController@smsdestroy', 'middleware' => ['permission:sms-template-delete']]);
 Route::get('template/sms/show/{id}', ['uses'=>'TemplateController@smsshow', 'middleware' => ['permission:sms-template-show']]);  
     // Template Email
-    Route::get('template/email', 'TemplateController@emailindex');
-    Route::get('template/email/create', 'TemplateController@emailcreate');
-    Route::post('template/email/store', 'TemplateController@emailstore');
-    Route::get('template/email/edit/{id}', 'TemplateController@emailedit');
-    Route::post('template/email/update/{id}', 'TemplateController@emailupdate');
-    Route::delete('template/email/destroy/{id}', 'TemplateController@emaildestroy');
-    Route::get('template/email/show/{id}', 'TemplateController@emailshow');  
+    Route::get('template/email', ['uses'=>'TemplateController@emailindex', 'middleware' => ['permission:email-template-list']]);
+    Route::get('template/email/create', ['uses'=>'TemplateController@emailcreate', 'middleware' => ['permission:email-template-list']]);
+    Route::post('template/email/store', ['uses'=>'TemplateController@emailstore', 'middleware' => ['permission:email-template-list']]);
+    Route::get('template/email/edit/{id}', ['uses'=>'TemplateController@emailedit', 'middleware' => ['permission:email-template-list']]);
+    Route::post('template/email/update/{id}', ['uses'=>'TemplateController@emailupdate', 'middleware' => ['permission:email-template-list']]);
+    Route::delete('template/email/destroy/{id}', ['uses'=>'TemplateController@emaildestroy', 'middleware' => ['permission:email-template-list']]);
+    Route::get('template/email/show/{id}', ['uses'=>'TemplateController@emailshow', 'middleware' => ['permission:email-template-list']]);  
         // Template Whatsapp
-Route::get('template/whatsapp', 'TemplateController@whatsappindex');
-Route::get('template/whatsapp/create', 'TemplateController@whatsappcreate');
-Route::post('template/whatsapp/store', 'TemplateController@whatsappstore');
-Route::get('template/whatsapp/edit/{id}', 'TemplateController@whatsappedit');
-Route::post('template/whatsapp/update/{id}', 'TemplateController@whatsappupdate');
-Route::delete('template/whatsapp/destroy/{id}', 'TemplateController@whatsappdestroy');
-Route::get('template/whatsapp/show/{id}', 'TemplateController@whatsappshow');
+Route::get('template/whatsapp', ['uses'=>'TemplateController@whatsappindex', 'middleware' => ['permission:whatsapp-template-list']]);
+Route::get('template/whatsapp/create', ['uses'=>'TemplateController@whatsappcreate', 'middleware' => ['permission:whatsapp-template-list']]);
+Route::post('template/whatsapp/store', ['uses'=>'TemplateController@whatsappstore', 'middleware' => ['permission:whatsapp-template-list']]);
+Route::get('template/whatsapp/edit/{id}', ['uses'=>'TemplateController@whatsappedit', 'middleware' => ['permission:whatsapp-template-list']]);
+Route::post('template/whatsapp/update/{id}', ['uses'=>'TemplateController@whatsappupdate', 'middleware' => ['permission:whatsapp-template-list']]);
+Route::delete('template/whatsapp/destroy/{id}', ['uses'=>'TemplateController@whatsappdestroy', 'middleware' => ['permission:whatsapp-template-list']]);
+Route::get('template/whatsapp/show/{id}', ['uses'=>'TemplateController@whatsappshow', 'middleware' => ['permission:whatsapp-template-list']]);
 
-Route::get('stage/rule/{id}', 'StageController@rule');
-Route::get('stage/addrule/{id}', 'StageController@addrule');
-Route::post('stage/rulestore', 'StageController@rulestore');
+Route::get('stage/rule/{id}', ['uses'=>'StageController@rule', 'middleware' => ['permission:Stage-rule-list']]);
+Route::get('stage/addrule/{id}', ['uses'=>'StageController@addrule', 'middleware' => ['permission:Stage-rule-create']]);
+Route::post('stage/rulestore', ['uses'=>'StageController@rulestore', 'middleware' => ['permission:Stage-rule-create']]);
 });
 
 // Update Company Profile
@@ -121,64 +123,64 @@ Route::get('payment', ['as' => 'payment', 'uses' => 'PaymentController@payment']
 Route::get('payment/status', ['as' => 'payment.status', 'uses' => 'PaymentController@status']);
 
 // Ticket Status View
-Route::get('tickets/settings/status', 'TicketController@TicketStatus');
+Route::get('tickets/settings/status', ['uses'=>'TicketController@TicketStatus', 'middleware' => ['permission:Ticket-status-list']]);
 
 // Ticket Status Create View
-Route::get('ticket/settings/status/create', 'TicketController@TicketStatusCreate');
+Route::get('ticket/settings/status/create', ['uses'=>'TicketController@TicketStatusCreate', 'middleware' => ['permission:Ticket-status-create']]);
 
 // Ticket Status Create
-Route::post('ticket/settings/status/store', 'TicketController@TicketStatusStore');
+Route::post('ticket/settings/status/store', ['uses'=>'TicketController@TicketStatusStore', 'middleware' => ['permission:Ticket-status-create']]);
 
 // Ticket Status Edit View
-Route::get('ticket/settings/status/{id}', 'TicketController@TicketStatusEdit');
+Route::get('ticket/settings/status/{id}', ['uses'=>'TicketController@TicketStatusEdit', 'middleware' => ['permission:Ticket-status-update']]);
 
 // Ticket Status Update
-Route::post('ticket/settings/status/update', 'TicketController@TicketStatusUpdate');
+Route::post('ticket/settings/status/update', ['uses'=>'TicketController@TicketStatusUpdate', 'middleware' => ['permission:Ticket-status-update']]);
 
 // Ticket Status Delete
-Route::post('ticket/settings/status/delete', 'TicketController@TicketStatusDelete');
+Route::post('ticket/settings/status/delete', ['uses'=>'TicketController@TicketStatusDelete', 'middleware' => ['permission:Ticket-status-delete']]);
 
 /*********************************************************************************/
 
 // Priority View
-Route::get('tickets/settings/priority', 'TicketController@Priority');
+Route::get('tickets/settings/priority', ['uses'=>'TicketController@Priority', 'middleware' => ['permission:Ticket-priority-list']]);
 
 // Priority Create View
-Route::get('ticket/settings/priority/create', 'TicketController@TicketPriorityCreate');
+Route::get('ticket/settings/priority/create', ['uses'=>'TicketController@TicketPriorityCreate', 'middleware' => ['permission:Ticket-priority-create']]);
 
 // Priority Create
-Route::post('ticket/settings/priority/store', 'TicketController@TicketPriorityStore');
+Route::post('ticket/settings/priority/store', ['uses'=>'TicketController@TicketPriorityStore', 'middleware' => ['permission:Ticket-priority-create']]);
 
 // Priority Edit View
-Route::get('ticket/settings/priority/{id}', 'TicketController@TicketPriorityEdit');
+Route::get('ticket/settings/priority/{id}', ['uses'=>'TicketController@TicketPriorityEdit', 'middleware' => ['permission:Ticket-priority-update']]);
 
 // Priority Update
-Route::post('ticket/settings/priority/update', 'TicketController@TicketPriorityUpdate');
+Route::post('ticket/settings/priority/update', ['uses'=>'TicketController@TicketPriorityUpdate', 'middleware' => ['permission:Ticket-priority-update']]);
 
 // Priority Delete
-Route::post('ticket/settings/priority/delete', 'TicketController@TicketPriorityDelete');
+Route::post('ticket/settings/priority/delete', ['uses'=>'TicketController@TicketPriorityDelete', 'middleware' => ['permission:Ticket-priority-delete']]);
 
 /*********************************************************************************/
 
 // Ticket Category View
-Route::get('tickets/settings/category', 'TicketController@Category');
+Route::get('tickets/settings/category', ['uses'=>'TicketController@Category', 'middleware' => ['permission:Ticket-category-list']]);
 
 // Ticket Category Create View
-Route::get('ticket/settings/category/create', 'TicketController@TicketCategoryCreate');
+Route::get('ticket/settings/category/create', ['uses'=>'TicketController@TicketCategoryCreate', 'middleware' => ['permission:Ticket-category-create']]);
 
 // Ticket Category Create
-Route::post('ticket/settings/category/store', 'TicketController@TicketCategoryStore');
+Route::post('ticket/settings/category/store', ['uses'=>'TicketController@TicketCategoryStore', 'middleware' => ['permission:Ticket-category-create']]);
 
 // Ticket Category Edit View
-Route::get('ticket/settings/category/{id}', 'TicketController@TicketCategoryEdit');
+Route::get('ticket/settings/category/{id}', ['uses'=>'TicketController@TicketCategoryEdit', 'middleware' => ['permission:Ticket-category-update']]);
 
 // Ticket Category Update
-Route::post('ticket/settings/category/update', 'TicketController@TicketCategoryUpdate');
+Route::post('ticket/settings/category/update', ['uses'=>'TicketController@TicketCategoryUpdate', 'middleware' => ['permission:Ticket-category-update']]);
 
 // Ticket Category Delete
-Route::post('ticket/settings/category/delete', 'TicketController@TicketCategoryDelete');
+Route::post('ticket/settings/category/delete', ['uses'=>'TicketController@TicketCategoryDelete', 'middleware' => ['permission:Ticket-category-delete']]);
 
 /******************************************************/
-Route::get('ticket/create', 'TicketController@TicketCreate');
-Route::get('tickets/', 'TicketController@index');
-Route::post('ticket/store/', 'TicketController@TicketStore');
+Route::get('ticket/create', ['uses'=>'TicketController@TicketCreate', 'middleware' => ['permission:ticket-create']]);
+Route::get('tickets/', ['uses'=>'TicketController@index', 'middleware' => ['permission:ticket-list']]);
+Route::post('ticket/store/', ['uses'=>'TicketController@TicketStore', 'middleware' => ['permission:ticket-create']]);

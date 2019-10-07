@@ -44,10 +44,14 @@ class ContactController extends Controller
   
     if($stages=='1'){
     $contact = \DB::table('list')->select('list.*','users.name as uname')->join("users", "list.created_by", "=", "users.id")->paginate(5);   
+    $listcount = \DB::table('list')->where([['list.assign_marketing_head', '!=' ,0]])->count();   
+    
      }else{
+        $listcount = \DB::table('list')->where([['contact.assign_marketing_head', '=' ,$id]])->count();   
+    
         $contact = \DB::table('list')->select('list.*','users.name as uname')>join("users", "list.created_by", "=", "users.id")->where('list.assign_marketing_head' , '=' , $id)->paginate(5); 
      }
-        return view('contact.index',compact('contact','stag2'));
+        return view('contact.index',compact('contact','stag2','listcount'));
     }
     public function listdata($listid)
     {

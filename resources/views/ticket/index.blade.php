@@ -48,7 +48,7 @@
                         <th>Agent</th>
                         <th>Created By</th>
                         <th>Created At</th>
-                        <th>Actions</th>
+                        <!-- <th>Actions</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -63,7 +63,7 @@
                         <td>{{ $role->agent_id }}</td>
                         <td>{{ $role->created_by }}</td>
                         <td>{{ date('d M, Y h:i:a',strtotime($role->created_at)) }}</td>
-                        <td>
+                        <!-- <td>
                             @can('stage-edit')
                             <a class="btn btn-primary" href="{{ url('ticket/settings/category', [$role->id]) }}">Edit</a>
                             @endcan
@@ -74,7 +74,7 @@
                                     <input type="submit" value="Delete" name="" class="btn btn-danger">
                                 </form>
                             @endcan
-                        </td>
+                        </td> -->
                     </tr>
                     @endforeach
                 </tbody>
